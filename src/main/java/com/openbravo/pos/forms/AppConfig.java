@@ -2,7 +2,7 @@
 //    
 //    https://www.allku.expert
 //
-//    This file is part of AllkuPos EC
+//    This file is part of uniCenta oPOS
 //
 //    AllkuPos EC is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ public class AppConfig implements AppProperties {
   }
 
   /**
-   * allkupos resources file
+   * unicenta resources file
    *
    * @param configfile resource file
    */
@@ -337,9 +337,9 @@ public class AppConfig implements AppProperties {
     m_propsconfig.setProperty("paper.standard.height", "698");
     m_propsconfig.setProperty("paper.standard.mediasizename", "A4");
 
-    m_propsconfig.setProperty("tkt.header1", "AllkuPos EC");
+    m_propsconfig.setProperty("tkt.header1", "uniCenta oPOS");
     m_propsconfig.setProperty("tkt.header2", "Touch Friendly Point Of Sale");
-    m_propsconfig.setProperty("tkt.header3", "AllkuPos EC software libre");
+    m_propsconfig.setProperty("tkt.header3", "Copyright (c) 2009-2018 uniCenta");
     m_propsconfig.setProperty("tkt.header4", "Change header text in Configuration");
 
     m_propsconfig.setProperty("tkt.footer1", "Change footer text in Configuration");

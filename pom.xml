@@ -2,9 +2,9 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>expert.allku</groupId>
-  <artifactId>allkupos</artifactId>
-  <version>1.0.0</version>
+  <groupId>com.unicenta</groupId>
+  <artifactId>unicentaopos</artifactId>
+  <version>4.6.1</version>
   <packaging>jar</packaging>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -502,7 +502,7 @@
         <version>2.10</version>
       </extension>
     </extensions>
-    <finalName>allkupos</finalName>
+    <finalName>unicentaopos</finalName>
   </build>
   <repositories>
     <repository>
@@ -540,5 +540,5 @@
       <uniqueVersion>false</uniqueVersion>
     </repository>
   </distributionManagement>
-  <name>allkupos</name>
+  <name>unicentaopos</name>
 </project>
