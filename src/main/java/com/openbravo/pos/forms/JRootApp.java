@@ -1,21 +1,21 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
-//    https://unicenta.com
+//    AllkuPos EC  - Touch Friendly Point Of Sale
+//    
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of AllkuPos EC
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    AllkuPos EC is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//   AllkuPos EC is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
+//    along with AllkuPos EC.  If not, see <http://www.gnu.org/licenses/>
 
 package com.openbravo.pos.forms;
 
@@ -140,9 +140,9 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
 
       DateTime m_datetime = getDateTime();
 
-      m_jLblTitle.setText(m_dlSystem.getResourceAsText("Window.Title"));
-      m_jLblTitle.repaint();
-      jLabel2.setText("  " + m_date + " " + m_clock);
+//      m_jLblTitle.setText(m_dlSystem.getResourceAsText("Window.Title"));
+//      m_jLblTitle.repaint();
+//      jLabel2.setText("  " + m_date + " " + m_clock);
 /*
 * JG Note: Arbritary 8 hour cycle for MySQL server ping on chosen port:nnnn
 * MySQL default setting is 28800 seconds (8hrs)
@@ -194,8 +194,8 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
 
     initComponents();
     jScrollPane1.getVerticalScrollBar().setPreferredSize(new Dimension(30, 30));
-    serverMonitor.setVisible(false);
-    webMemoryBar1.setShowMaximumMemory(true);
+//    serverMonitor.setVisible(false);
+//    webMemoryBar1.setShowMaximumMemory(true);
   }
 
   private DSPortAdapter m_oneWireAdapter;
@@ -329,7 +329,7 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
   public boolean initApp(AppProperties props) {
 
     m_props = props;
-    m_jPanelDown.setVisible(!(Boolean.valueOf(m_props.getProperty("till.hideinfo"))));
+//    m_jPanelDown.setVisible(!(Boolean.valueOf(m_props.getProperty("till.hideinfo"))));
 
     applyComponentOrientation(ComponentOrientation.getOrientation(Locale.getDefault()));
 
@@ -503,13 +503,13 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
     } catch (SQLException e) {
       url = "";
     }
-    m_jHost.setText("<html>" + m_props.getHost() + " - " + sWareHouse + "<br>" + url);
+//    m_jHost.setText("<html>" + m_props.getHost() + " - " + sWareHouse + "<br>" + url);
 
 
     String newLogo = m_props.getProperty("start.logo");
     if (newLogo != null) {
       if ("".equals(newLogo)) {
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/logo.png")));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/capu.png")));
       } else {
         jLabel1.setIcon(new javax.swing.ImageIcon(newLogo));
       }
@@ -518,15 +518,14 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
     String newText = m_props.getProperty("start.text");
     if (newText != null) {
       if (newText.equals("")) {
-        jLabel1.setText("<html><center>uniCenta oPOS - Touch Friendly Point of Sale<br>" +
-                "Copyright \u00A9  uniCenta <br>" +
-                "https://unicenta.com/<br>" +
+        jLabel1.setText("<html><center>AllkuPos EC - Touch Friendly Point of Sale<br>" +
+                "https://www.allku.expert/<br>" +
                 "<br>" +
-                "uniCenta oPOS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
+                "AllkuPos EC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
                 "<br>" +
-                "uniCenta oPOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
+                "AllkuPos EC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
                 "<br>" +
-                "You should have received a copy of the GNU General Public License along with uniCenta oPOS.  If not, see http://www.gnu.org/licenses/<br>" +
+                "You should have received a copy of the GNU General Public License along with AllkuPos EC.  If not, see http://www.gnu.org/licenses/<br>" +
                 "</center>");
 
       } else {
@@ -852,8 +851,8 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
 
       m_principalapp = new JPrincipalApp(this, user);
 
-      jPanel3.add(m_principalapp.getNotificator());
-      jPanel3.revalidate();
+//      jPanel3.add(m_principalapp.getNotificator());
+//      jPanel3.revalidate();
 
       m_jPanelContainer.add(m_principalapp
               , "_" + m_principalapp.getUser().getId());
@@ -875,9 +874,9 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
     } else if (!m_principalapp.deactivate()) {
       return false;
     } else {
-      jPanel3.remove(m_principalapp.getNotificator());
-      jPanel3.revalidate();
-      jPanel3.repaint();
+//      jPanel3.remove(m_principalapp.getNotificator());
+//      jPanel3.revalidate();
+//      jPanel3.repaint();
 
       m_jPanelContainer.remove(m_principalapp);
       m_principalapp = null;
@@ -926,8 +925,9 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
   }
 
   private int getProgressBar() {
-    int rate = serverMonitor.getValue();
-    return rate;
+//    int rate = serverMonitor.getValue();
+//    return rate;
+        return 0;
   }
 
   private boolean pingServer() throws UnknownHostException {
@@ -935,7 +935,7 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
      * This method is for the future. Connects and will include both servers + backup server
      * Tested locally on JG machine and unicenta-server
      */
-    serverMonitor.setString("Checking...");
+//    serverMonitor.setString("Checking...");
 
     InetAddress addr = InetAddress.getByName(AppLocal.getIntString("db.ip"));
     int port = 3306;
@@ -944,8 +944,8 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
     Socket sock = new Socket();
     try {
       sock.connect(sockaddr, 2000);
-      serverMonitor.setString("Server is alive!");
-      serverMonitor.setValue(0);
+//      serverMonitor.setString("Server is alive!");
+//      serverMonitor.setValue(0);
       return true;
     } catch (IOException ex) {
       log.error(ex.getMessage());
@@ -959,213 +959,147 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
    * WARNING: Do NOT modify this code. The content of this method is
    * always regenerated by the FormEditor.
    */
-  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-  private void initComponents() {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-    m_jPanelTitle = new javax.swing.JPanel();
-    m_jLblTitle = new javax.swing.JLabel();
-    poweredby = new javax.swing.JLabel();
-    jLabel2 = new javax.swing.JLabel();
-    m_jPanelContainer = new javax.swing.JPanel();
-    m_jPanelLogin = new javax.swing.JPanel();
-    jPanel4 = new javax.swing.JPanel();
-    jLabel1 = new javax.swing.JLabel();
-    filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 0));
-    jPanel5 = new javax.swing.JPanel();
-    m_jLogonName = new javax.swing.JPanel();
-    jPanel2 = new javax.swing.JPanel();
-    jPanel8 = new javax.swing.JPanel();
-    jScrollPane1 = new javax.swing.JScrollPane();
-    jPanel1 = new javax.swing.JPanel();
-    m_txtKeys = new javax.swing.JTextField();
-    m_jClose = new javax.swing.JButton();
-    m_jPanelDown = new javax.swing.JPanel();
-    panelTask = new javax.swing.JPanel();
-    m_jHost = new javax.swing.JLabel();
-    webMemoryBar1 = new com.alee.extended.statusbar.WebMemoryBar();
-    serverMonitor = new com.alee.laf.progressbar.WebProgressBar();
-    jPanel3 = new javax.swing.JPanel();
+        m_jPanelContainer = new javax.swing.JPanel();
+        m_jPanelLogin = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 0));
+        jPanel5 = new javax.swing.JPanel();
+        m_jLogonName = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        m_txtKeys = new javax.swing.JTextField();
+        m_jClose = new javax.swing.JButton();
 
-    setEnabled(false);
-    setPreferredSize(new java.awt.Dimension(1024, 768));
-    setLayout(new java.awt.BorderLayout());
+        setEnabled(false);
+        setPreferredSize(new java.awt.Dimension(1024, 768));
+        setLayout(new java.awt.BorderLayout());
 
-    m_jPanelTitle.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
-    m_jPanelTitle.setPreferredSize(new java.awt.Dimension(449, 40));
-    m_jPanelTitle.setLayout(new java.awt.BorderLayout());
+        m_jPanelContainer.setLayout(new java.awt.CardLayout());
 
-    m_jLblTitle.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-    m_jLblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    m_jLblTitle.setText("Window.Title");
-    m_jPanelTitle.add(m_jLblTitle, java.awt.BorderLayout.CENTER);
+        m_jPanelLogin.setLayout(new java.awt.BorderLayout());
 
-    poweredby.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-    poweredby.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/poweredby_uni.png"))); // NOI18N
-    poweredby.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
-    poweredby.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-    poweredby.setMaximumSize(new java.awt.Dimension(180, 34));
-    poweredby.setPreferredSize(new java.awt.Dimension(180, 34));
-    m_jPanelTitle.add(poweredby, java.awt.BorderLayout.LINE_END);
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
 
-    jLabel2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
-    jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-    jLabel2.setPreferredSize(new java.awt.Dimension(180, 34));
-    m_jPanelTitle.add(jLabel2, java.awt.BorderLayout.LINE_START);
-
-    add(m_jPanelTitle, java.awt.BorderLayout.NORTH);
-
-    m_jPanelContainer.setLayout(new java.awt.CardLayout());
-
-    m_jPanelLogin.setLayout(new java.awt.BorderLayout());
-
-    jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.Y_AXIS));
-
-    jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-    jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-    jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/unicenta.png"))); // NOI18N
-    jLabel1.setText("<html><center>uniCenta oPOS - Touch Friendly Point of Sale<br>" +
-            "Copyright \u00A9 2009-2017 uniCenta <br>" +
-            "https://unicenta.com<br>" +
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/capu.png"))); // NOI18N
+        jLabel1.setText("<html><center>AllkuPos EC - Touch Friendly Point of Sale<br>" +
+            "https://www.allku.expert<br>" +
             "<br>" +
-            "uniCenta oPOS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
+            "AllkuPos EC is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>" +
             "<br>" +
-            "uniCenta oPOS is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
+            "AllkuPos EC is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br>" +
             "<br>" +
-            "You should have received a copy of the GNU General Public License along with uniCenta oPOS.  If not, see http://www.gnu.org/licenses/<br>" +
+            "You should have received a copy of the GNU General Public License along with AllkuPos EC.  If not, see http://www.gnu.org/licenses/<br>" +
             "</center>");
-    jLabel1.setAlignmentX(0.5F);
-    jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-    jLabel1.setMaximumSize(new java.awt.Dimension(800, 1024));
-    jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-    jPanel4.add(jLabel1);
-    jPanel4.add(filler2);
+        jLabel1.setAlignmentX(0.5F);
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setMaximumSize(new java.awt.Dimension(800, 1024));
+        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jPanel4.add(jLabel1);
+        jPanel4.add(filler2);
 
-    m_jPanelLogin.add(jPanel4, java.awt.BorderLayout.CENTER);
+        m_jPanelLogin.add(jPanel4, java.awt.BorderLayout.CENTER);
 
-    jPanel5.setPreferredSize(new java.awt.Dimension(300, 400));
+        jPanel5.setPreferredSize(new java.awt.Dimension(300, 400));
 
-    m_jLogonName.setLayout(new java.awt.BorderLayout());
+        m_jLogonName.setLayout(new java.awt.BorderLayout());
 
-    jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
-    jPanel2.setPreferredSize(new java.awt.Dimension(100, 100));
-    jPanel2.setLayout(new java.awt.BorderLayout());
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        jPanel2.setPreferredSize(new java.awt.Dimension(100, 100));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-    jPanel8.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
-    jPanel2.add(jPanel8, java.awt.BorderLayout.NORTH);
+        jPanel8.setLayout(new java.awt.GridLayout(0, 1, 5, 5));
+        jPanel2.add(jPanel8, java.awt.BorderLayout.NORTH);
 
-    m_jLogonName.add(jPanel2, java.awt.BorderLayout.LINE_END);
+        m_jLogonName.add(jPanel2, java.awt.BorderLayout.LINE_END);
 
-    jScrollPane1.setBorder(null);
-    jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-    jScrollPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-    m_txtKeys.setPreferredSize(new java.awt.Dimension(0, 0));
-    m_txtKeys.addKeyListener(new java.awt.event.KeyAdapter() {
-      public void keyTyped(java.awt.event.KeyEvent evt) {
-        m_txtKeysKeyTyped(evt);
-      }
-    });
+        m_txtKeys.setPreferredSize(new java.awt.Dimension(0, 0));
+        m_txtKeys.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                m_txtKeysKeyTyped(evt);
+            }
+        });
 
-    m_jClose.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    m_jClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/exit.png"))); // NOI18N
-    m_jClose.setText(AppLocal.getIntString("button.close")); // NOI18N
-    m_jClose.setFocusPainted(false);
-    m_jClose.setFocusable(false);
-    m_jClose.setPreferredSize(new java.awt.Dimension(100, 50));
-    m_jClose.setRequestFocusEnabled(false);
-    m_jClose.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        m_jCloseActionPerformed(evt);
-      }
-    });
+        m_jClose.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        m_jClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/exit.png"))); // NOI18N
+        m_jClose.setText(AppLocal.getIntString("button.close")); // NOI18N
+        m_jClose.setFocusPainted(false);
+        m_jClose.setFocusable(false);
+        m_jClose.setPreferredSize(new java.awt.Dimension(100, 50));
+        m_jClose.setRequestFocusEnabled(false);
+        m_jClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jCloseActionPerformed(evt);
+            }
+        });
 
-    org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1Layout.createSequentialGroup()
-                            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jPanel1Layout.createSequentialGroup()
-                                            .add(m_txtKeys, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(0, 0, Short.MAX_VALUE))
-                                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                                            .addContainerGap()
-                                            .add(m_jClose, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)))
-                            .addContainerGap())
-    );
-    jPanel1Layout.setVerticalGroup(
+                        .add(m_txtKeys, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(m_jClose, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                            .add(m_txtKeys, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                            .add(m_jClose, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-    );
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(m_txtKeys, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(m_jClose, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
 
-    org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
-    jPanel5.setLayout(jPanel5Layout);
-    jPanel5Layout.setHorizontalGroup(
+        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel5Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(jScrollPane1))
-                            .add(104, 104, 104)
-                            .add(m_jLogonName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(0, 0, Short.MAX_VALUE))
-    );
-    jPanel5Layout.setVerticalGroup(
+            .add(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jScrollPane1))
+                .add(104, 104, 104)
+                .add(m_jLogonName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+                .add(15, 15, 15)
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel5Layout.createSequentialGroup()
-                            .add(15, 15, 15)
-                            .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jPanel5Layout.createSequentialGroup()
-                                            .add(m_jLogonName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(434, 434, 434))
-                                    .add(jPanel5Layout.createSequentialGroup()
-                                            .add(jScrollPane1)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .addContainerGap())))
-    );
+                        .add(m_jLogonName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(434, 434, 434))
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .add(jScrollPane1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
 
-    m_jPanelLogin.add(jPanel5, java.awt.BorderLayout.EAST);
+        m_jPanelLogin.add(jPanel5, java.awt.BorderLayout.EAST);
 
-    m_jPanelContainer.add(m_jPanelLogin, "login");
+        m_jPanelContainer.add(m_jPanelLogin, "login");
 
-    add(m_jPanelContainer, java.awt.BorderLayout.CENTER);
-
-    m_jPanelDown.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
-    m_jPanelDown.setLayout(new java.awt.BorderLayout());
-
-    m_jHost.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-    m_jHost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/display.png"))); // NOI18N
-    m_jHost.setText("*Hostname");
-    panelTask.add(m_jHost);
-
-    webMemoryBar1.setBackground(new java.awt.Color(153, 153, 153));
-    webMemoryBar1.setText("");
-    webMemoryBar1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-    webMemoryBar1.setPreferredSize(new java.awt.Dimension(150, 30));
-    webMemoryBar1.setUsedBorderColor(new java.awt.Color(0, 204, 204));
-    webMemoryBar1.setUsedFillColor(new java.awt.Color(0, 204, 255));
-    panelTask.add(webMemoryBar1);
-
-    serverMonitor.setToolTipText("");
-    serverMonitor.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-    serverMonitor.setMaximumSize(new java.awt.Dimension(50, 18));
-    serverMonitor.setPreferredSize(new java.awt.Dimension(150, 30));
-    serverMonitor.setProgressBottomColor(new java.awt.Color(76, 197, 237));
-    serverMonitor.setRound(2);
-    serverMonitor.setString("Keep Alive");
-    serverMonitor.setStringPainted(true);
-    panelTask.add(serverMonitor);
-
-    m_jPanelDown.add(panelTask, java.awt.BorderLayout.LINE_START);
-    m_jPanelDown.add(jPanel3, java.awt.BorderLayout.LINE_END);
-
-    add(m_jPanelDown, java.awt.BorderLayout.SOUTH);
-  }// </editor-fold>//GEN-END:initComponents
+        add(m_jPanelContainer, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
 
 
   private void m_txtKeysKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_m_txtKeysKeyTyped
@@ -1180,29 +1114,19 @@ public class JRootApp extends JPanel implements AppView, DeviceMonitorEventListe
   }//GEN-LAST:event_m_jCloseActionPerformed
 
 
-  // Variables declaration - do not modify//GEN-BEGIN:variables
-  private javax.swing.Box.Filler filler2;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JPanel jPanel1;
-  private javax.swing.JPanel jPanel2;
-  private javax.swing.JPanel jPanel3;
-  private javax.swing.JPanel jPanel4;
-  private javax.swing.JPanel jPanel5;
-  private javax.swing.JPanel jPanel8;
-  private javax.swing.JScrollPane jScrollPane1;
-  private javax.swing.JButton m_jClose;
-  private javax.swing.JLabel m_jHost;
-  private javax.swing.JLabel m_jLblTitle;
-  private javax.swing.JPanel m_jLogonName;
-  private javax.swing.JPanel m_jPanelContainer;
-  private javax.swing.JPanel m_jPanelDown;
-  private javax.swing.JPanel m_jPanelLogin;
-  private javax.swing.JPanel m_jPanelTitle;
-  private javax.swing.JTextField m_txtKeys;
-  private javax.swing.JPanel panelTask;
-  private javax.swing.JLabel poweredby;
-  private com.alee.laf.progressbar.WebProgressBar serverMonitor;
-  private com.alee.extended.statusbar.WebMemoryBar webMemoryBar1;
-  // End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton m_jClose;
+    private javax.swing.JPanel m_jLogonName;
+    private javax.swing.JPanel m_jPanelContainer;
+    private javax.swing.JPanel m_jPanelLogin;
+    private javax.swing.JTextField m_txtKeys;
+    // End of variables declaration//GEN-END:variables
 }

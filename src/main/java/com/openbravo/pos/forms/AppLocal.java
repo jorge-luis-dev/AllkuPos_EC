@@ -1,21 +1,21 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    AllkuPos EC - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
-//    https://unicenta.com
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of AllkuPos EC 
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    AllkuPos EC is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    AllkuPos EC is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>
+//    along with AllkuPos EC.  If not, see <http://www.gnu.org/licenses/>
 
 package com.openbravo.pos.forms;
 
@@ -28,9 +28,9 @@ import com.openbravo.beans.LocaleResources;
 public class AppLocal {
 
 
-    public static final String APP_NAME = "uniCenta oPOS";
-    public static final String APP_ID = "unicentaopos";
-    public static final String APP_VERSION = "4.6.1";
+    public static final String APP_NAME = "AllkuPos EC ";
+    public static final String APP_ID = "allkupos";
+    public static final String APP_VERSION = "1.0.0";
 
     private static final LocaleResources m_resources;
 
