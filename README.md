@@ -10,10 +10,13 @@ Software POS for Ecuador, based on OpenBravo and UniCenta (POS -> Point of Sale)
 ## Instruction to install
 1. Clone repository
 2. Get into folder
-3. mysql> CREATE SCHEMA `allkupos`;
-4. $ mvn clean
-5. $ mvn install
-6. Get into target folder and execute start.bat (windows)
+3. mysql> CREATE SCHEMA allkupos;
+4. mysql> CREATE USER allku@localhost IDENTIFIED BY 'password';
+5. mysql> GRANT ALL PRIVILEGES ON allkupos.* TO allku@localhost WITH GRANT OPTION;
+6. mysql> flush privileges;
+7. $ mvn clean
+8. $ mvn install
+9. Get into target folder and execute start.bat (windows)
 
 # Manual
 ## Printer (Epson tmu-220, Epson tm-t20 or any model) for text mode (RECOMMENDED)
