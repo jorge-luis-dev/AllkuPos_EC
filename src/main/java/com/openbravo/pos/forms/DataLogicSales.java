@@ -1,21 +1,21 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Allku Pos  - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
-//    https://unicenta.com
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of Allku Pos
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    Allku Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    Allku Pos is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+//    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 package com.openbravo.pos.forms;
 
@@ -27,6 +27,7 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.catalog.CategoryStock;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.customers.CustomerTransaction;
+import com.openbravo.pos.customers.IdentificationInfo;
 import com.openbravo.pos.inventory.*;
 import com.openbravo.pos.mant.FloorsInfo;
 import com.openbravo.pos.payment.PaymentInfo;
@@ -2824,5 +2825,21 @@ public class DataLogicSales extends BeanFactoryDataSingle {
         };
     }
 
-
+    public SentenceList getIdentificationList() {
+        return new StaticSentence(s, 
+        new QBFBuilder("select code, name from identificationtype " +
+                       "where status = 'Active' " +
+                       "order by name",
+                        new String[] {"code", "name"}),
+                new SerializerWriteBasic(new Datas[] {
+                    Datas.OBJECT, Datas.STRING,
+                    Datas.OBJECT, Datas.STRING
+                }),
+                (DataRead dr) -> {
+                    IdentificationInfo i = new IdentificationInfo(dr.getString(1));
+                    i.setName(dr.getString(2));                
+                
+                return i;
+                });
+    }
 }

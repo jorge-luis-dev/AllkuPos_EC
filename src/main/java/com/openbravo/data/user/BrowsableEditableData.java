@@ -1,21 +1,21 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
-//    Copyright (c) 2009-2015 uniCenta & previous Openbravo POS works
-//    http://www.unicenta.com
+//    Allku Pos  - Touch Friendly Point Of Sale
+//    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of Allku Pos
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    Allku Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    Allku Pos is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+//    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 package com.openbravo.data.user;
 
@@ -410,7 +410,7 @@ public class BrowsableEditableData {
 
         //Get the customer being referenced for firing action events
         boolean isCustomerChangeEvent = false;
-        Object[] customer = new Object[27];
+        Object[] customer = new Object[29];
         if (m_editorrecord.getClass().getName().equals("com.openbravo.pos.customers.CustomersView")) {
             isCustomerChangeEvent = true;
             customer = (Object[]) m_editorrecord.createValue();
@@ -423,7 +423,7 @@ public class BrowsableEditableData {
                 baseMoveTo(i);
 
                 if (isCustomerChangeEvent) {
-                    triggerCustomerEvent("customer.updated", customer, customer[27]);
+                    triggerCustomerEvent("customer.updated", customer, customer[28]);
                 }
 
 
@@ -432,12 +432,12 @@ public class BrowsableEditableData {
                 if (isCustomerChangeEvent) {
                     m_editorrecord.refresh();
 
-                    AppView appView = (AppView) customer[27];
+                    AppView appView = (AppView) customer[28];
                     int i = m_bd.insertRecord(customer);
                     m_editorrecord.refresh();
                     baseMoveTo(i);
 
-                    triggerCustomerEvent("customer.created", customer, customer[27]);
+                    triggerCustomerEvent("customer.created", customer, customer[28]);
 
                     int n = JOptionPane.showConfirmDialog(
                           null, 
@@ -466,7 +466,7 @@ public class BrowsableEditableData {
                 baseMoveTo(i);
 
                 if (isCustomerChangeEvent) {
-                    triggerCustomerEvent("customer.deleted", customer, customer[27]);
+                    triggerCustomerEvent("customer.deleted", customer, customer[28]);
                 }
             }
         }   

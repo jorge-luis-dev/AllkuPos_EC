@@ -1,21 +1,21 @@
---    uniCenta oPOS - Touch Friendly Point Of Sale
+--    Allku Pos - Touch Friendly Point Of Sale
 --    Copyright (c) 2009-2018 uniCenta
---    https://unicenta.com
+--    https://www.allku.expert
 --
---    This file is part of uniCenta oPOS.
+--    This file is part of Allku Pos.
 --
---    uniCenta oPOS is free software: you can redistribute it and/or modify
+--    Allku Pos is free software: you can redistribute it and/or modify
 --    it under the terms of the GNU General Public License as published by
 --    the Free Software Foundation, either version 3 of the License, or
 --    (at your option) any later version.
 --
---    uniCenta oPOS is distributed in the hope that it will be useful,
+--    Allku Pos is distributed in the hope that it will be useful,
 --    but WITHOUT ANY WARRANTY; without even the implied warranty of
 --    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 --    GNU General Public License for more details.
 --
 --    You should have received a copy of the GNU General Public License
---    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+--    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Script created by Jack, uniCenta 23/01/2018 08:00:00
@@ -30,14 +30,14 @@ CREATE TABLE `applications` (
 	`version` varchar(255) NOT NULL,
 	`instdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: attribute. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `attribute` (
 	`id` varchar(255) NOT NULL,
 	`name` varchar(255) NOT NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: attributeinstance. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `attributeinstance` (
@@ -48,14 +48,14 @@ CREATE TABLE `attributeinstance` (
 	KEY `attinst_att` ( `attribute_id` ),
 	KEY `attinst_set` ( `attributesetinstance_id` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: attributeset. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `attributeset` (
 	`id` varchar(255) NOT NULL,
 	`name` varchar(255) NOT NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: attributesetinstance. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `attributesetinstance` (
@@ -64,7 +64,7 @@ CREATE TABLE `attributesetinstance` (
 	`description` varchar(255) default NULL,
 	KEY `attsetinst_set` ( `attributeset_id` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: attributeuse. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `attributeuse` (
@@ -75,7 +75,7 @@ CREATE TABLE `attributeuse` (
 	KEY `attuse_att` ( `attribute_id` ),
 	UNIQUE INDEX `attuse_line` ( `attributeset_id`, `lineno` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: attributevalue. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `attributevalue` (
@@ -84,7 +84,7 @@ CREATE TABLE `attributevalue` (
 	`value` varchar(255) default NULL,
 	KEY `attval_att` ( `attribute_id` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: breaks. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `breaks` (
@@ -93,7 +93,7 @@ CREATE TABLE `breaks` (
 	`visible` tinyint(1) NOT NULL default '1',
 	`notes` varchar(255) default NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: categories. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `categories` (
@@ -107,7 +107,7 @@ CREATE TABLE `categories` (
 	KEY `categories_fk_1` ( `parentid` ),
 	UNIQUE INDEX `categories_name_inx` ( `name` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: closedcash. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `closedcash` (
@@ -120,7 +120,7 @@ CREATE TABLE `closedcash` (
 	KEY `closedcash_inx_1` ( `datestart` ),
 	UNIQUE INDEX `closedcash_inx_seq` ( `host`, `hostsequence` ),
 	PRIMARY KEY  ( `money` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: csvimport. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `csvimport` (
@@ -138,7 +138,7 @@ CREATE TABLE `csvimport` (
 	`tax` varchar(255) default NULL,
 	`searchkey` varchar(255) default NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: customers. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `customers` (
@@ -169,20 +169,21 @@ CREATE TABLE `customers` (
 	`isvip` bit(1) NOT NULL default b'0',
 	`discount` double default '0',
 	`memodate` datetime default '2000-01-01 00:00:01',
+        `type` varchar(18) NOT NULL,
 	KEY `customers_card_inx` ( `card` ),
 	KEY `customers_name_inx` ( `name` ),
 	UNIQUE INDEX `customers_skey_inx` ( `searchkey` ),
 	KEY `customers_taxcat` ( `taxcategory` ),
 	KEY `customers_taxid_inx` ( `taxid` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: draweropened. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `draweropened` (
 	`opendate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	`name` varchar(255) default NULL,
 	`ticketid` varchar(255) default NULL
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: floors. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `floors` (
@@ -191,7 +192,7 @@ CREATE TABLE `floors` (
 	`image` mediumblob default NULL,
 	UNIQUE INDEX `floors_name_inx` ( `name` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: leaves. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `leaves` (
@@ -203,7 +204,7 @@ CREATE TABLE `leaves` (
 	`notes` varchar(255) default NULL,
 	KEY `leaves_pplid` ( `pplid` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: lineremoved. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `lineremoved` (
@@ -213,7 +214,7 @@ CREATE TABLE `lineremoved` (
 	`productid` varchar(255) default NULL,
 	`productname` varchar(255) default NULL,
 	`units` double NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: locations. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `locations` (
@@ -222,7 +223,7 @@ CREATE TABLE `locations` (
 	`address` varchar(255) default NULL,
 	UNIQUE INDEX `locations_name_inx` ( `name` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: moorers. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `moorers` (
@@ -230,7 +231,7 @@ CREATE TABLE `moorers` (
 	`size` int(11) default NULL,
 	`days` int(11) default NULL,
 	`power` bit(1) NOT NULL default b'0'
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 CREATE TABLE IF NOT EXISTS `orders` (
     `id` MEDIUMINT NOT NULL AUTO_INCREMENT,
@@ -245,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
     `auxiliary` int(11) DEFAULT NULL,
     `completetime` timestamp NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: payments. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `payments` (
@@ -264,7 +265,7 @@ CREATE TABLE `payments` (
 	KEY `payments_fk_receipt` ( `receipt` ),
 	KEY `payments_inx_1` ( `payment` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: people. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `people` (
@@ -279,12 +280,12 @@ CREATE TABLE `people` (
 	KEY `people_fk_1` ( `role` ),
 	UNIQUE INDEX `people_name_inx` ( `name` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: pickup_number. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `pickup_number` (
 	`id` int(11) NOT NULL default '0'
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: places. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `places` (
@@ -304,7 +305,7 @@ CREATE TABLE `places` (
     `occupied` datetime DEFAULT NULL,
 	UNIQUE INDEX `places_name_inx` ( `name` ),
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: products. Script date: 02/04/2016 10:53:00. */
 CREATE TABLE `products` (
@@ -346,7 +347,7 @@ CREATE TABLE `products` (
 	UNIQUE INDEX `products_inx_1` ( `code` ),
 	INDEX `products_name_inx` ( `name` ),
 	KEY `products_taxcat_fk` ( `taxcat` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: products_cat. Script date: 11/05/2016 05:25:00. */
 CREATE TABLE `products_bundle` (
@@ -356,7 +357,7 @@ CREATE TABLE `products_bundle` (
     `quantity` DOUBLE NOT NULL,
     PRIMARY KEY ( `id` ),
     UNIQUE INDEX `pbundle_inx_prod` ( `product` , `product_bundle` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: products_cat. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `products_cat` (
@@ -364,7 +365,7 @@ CREATE TABLE `products_cat` (
 	`catorder` int(11) default NULL,
 	PRIMARY KEY  ( `product` ),
 	KEY `products_cat_inx_1` ( `catorder` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: products_com. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `products_com` (
@@ -374,7 +375,7 @@ CREATE TABLE `products_com` (
 	UNIQUE INDEX `pcom_inx_prod` ( `product`, `product2` ),
 	PRIMARY KEY  ( `id` ),
 	KEY `products_com_fk_2` ( `product2` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: receipts. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `receipts` (
@@ -386,7 +387,7 @@ CREATE TABLE `receipts` (
 	PRIMARY KEY  ( `id` ),
 	KEY `receipts_fk_money` ( `money` ),
 	KEY `receipts_inx_1` ( `datenew` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: reservation_customers. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `reservation_customers` (
@@ -394,7 +395,7 @@ CREATE TABLE `reservation_customers` (
 	`customer` varchar(255) NOT NULL,
 	PRIMARY KEY  ( `id` ),
 	KEY `res_cust_fk_2` ( `customer` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: reservations. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `reservations` (
@@ -407,7 +408,7 @@ CREATE TABLE `reservations` (
 	`description` varchar(255) default NULL,
 	PRIMARY KEY  ( `id` ),
 	KEY `reservations_inx_1` ( `datenew` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: resources. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `resources` (
@@ -418,7 +419,7 @@ CREATE TABLE `resources` (
         `version` varchar(10) default NULL,
 	PRIMARY KEY  ( `id` ),
 	UNIQUE INDEX `resources_name_inx` ( `name` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: roles. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `roles` (
@@ -427,7 +428,7 @@ CREATE TABLE `roles` (
 	`permissions` mediumblob default NULL,
 	PRIMARY KEY  ( `id` ),
 	UNIQUE INDEX `roles_name_inx` ( `name` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: sharedtickets. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `sharedtickets` (
@@ -438,7 +439,7 @@ CREATE TABLE `sharedtickets` (
 	`pickupid` int(11) NOT NULL default '0',
 	`locked` varchar(20) default NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: shift_breaks. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `shift_breaks` (
@@ -450,7 +451,7 @@ CREATE TABLE `shift_breaks` (
 	PRIMARY KEY  ( `id` ),
 	KEY `shift_breaks_breakid` ( `breakid` ),
 	KEY `shift_breaks_shiftid` ( `shiftid` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: shifts. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `shifts` (
@@ -459,7 +460,7 @@ CREATE TABLE `shifts` (
 	`endshift` datetime default NULL,
 	`pplid` varchar(255) NOT NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: stockcurrent. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `stockcurrent` (
@@ -470,7 +471,7 @@ CREATE TABLE `stockcurrent` (
 	KEY `stockcurrent_attsetinst` ( `attributesetinstance_id` ),
 	KEY `stockcurrent_fk_1` ( `product` ),
 	UNIQUE INDEX `stockcurrent_inx` ( `location`, `product`, `attributesetinstance_id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: stockdiary. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `stockdiary` (
@@ -490,7 +491,7 @@ CREATE TABLE `stockdiary` (
 	KEY `stockdiary_fk_1` ( `product` ),
 	KEY `stockdiary_fk_2` ( `location` ),
 	KEY `stockdiary_inx_1` ( `datenew` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: stocklevel. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `stocklevel` (
@@ -502,7 +503,7 @@ CREATE TABLE `stocklevel` (
 	PRIMARY KEY  ( `id` ),
 	KEY `stocklevel_location` ( `location` ),
 	KEY `stocklevel_product` ( `product` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: suppliers. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `suppliers` (
@@ -531,7 +532,7 @@ CREATE TABLE `suppliers` (
 	PRIMARY KEY  ( `id` ),
 	KEY `suppliers_name_inx` ( `name` ),
 	UNIQUE INDEX `suppliers_skey_inx` ( `searchkey` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: taxcategories. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `taxcategories` (
@@ -539,7 +540,7 @@ CREATE TABLE `taxcategories` (
 	`name` varchar(255) NOT NULL,
 	PRIMARY KEY  ( `id` ),
 	UNIQUE INDEX `taxcat_name_inx` ( `name` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: taxcustcategories. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `taxcustcategories` (
@@ -547,7 +548,7 @@ CREATE TABLE `taxcustcategories` (
 	`name` varchar(255) NOT NULL,
 	PRIMARY KEY  ( `id` ),
 	UNIQUE INDEX `taxcustcat_name_inx` ( `name` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: taxes. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `taxes` (
@@ -564,7 +565,7 @@ CREATE TABLE `taxes` (
 	KEY `taxes_custcat_fk` ( `custcategory` ),
 	UNIQUE INDEX `taxes_name_inx` ( `name` ),
 	KEY `taxes_taxes_fk` ( `parentid` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: taxlines. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `taxlines` (
@@ -576,14 +577,14 @@ CREATE TABLE `taxlines` (
 	PRIMARY KEY  ( `id` ),
 	KEY `taxlines_receipt` ( `receipt` ),
 	KEY `taxlines_tax` ( `taxid` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: taxsuppcategories. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `taxsuppcategories` (
 	`id` varchar(255) NOT NULL,
 	`name` varchar(255) NOT NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: thirdparties. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `thirdparties` (
@@ -603,7 +604,7 @@ CREATE TABLE `thirdparties` (
 	PRIMARY KEY  ( `id` ),
 	UNIQUE INDEX `thirdparties_cif_inx` ( `cif` ),
 	UNIQUE INDEX `thirdparties_name_inx` ( `name` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: ticketlines. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `ticketlines` (
@@ -619,7 +620,7 @@ CREATE TABLE `ticketlines` (
 	KEY `ticketlines_attsetinst` ( `attributesetinstance_id` ),
 	KEY `ticketlines_fk_2` ( `product` ),
 	KEY `ticketlines_fk_3` ( `taxid` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: tickets. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `tickets` (
@@ -633,30 +634,30 @@ CREATE TABLE `tickets` (
 	KEY `tickets_customers_fk` ( `customer` ),
 	KEY `tickets_fk_2` ( `person` ),
 	KEY `tickets_ticketid` ( `tickettype`, `ticketid` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: ticketsnum. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `ticketsnum` (
 	`id` int(11) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: ticketsnum_payment. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `ticketsnum_payment` (
 	`id` int(11) NOT NULL,
 	PRIMARY KEY  ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: ticketsnum_refund. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `ticketsnum_refund` (
 	`id` int(11) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: uom. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `uom` (
     `id` VARCHAR(255) NOT NULL,
     `name` VARCHAR(255) NOT NULL,
     PRIMARY KEY ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
 
 /* Header line. Object: vouchers. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `vouchers` (
@@ -666,7 +667,14 @@ CREATE TABLE `vouchers` (
    `amount` DOUBLE DEFAULT NULL,
    `status` CHAR(1) DEFAULT 'A',
   PRIMARY KEY ( `id` )
-) ENGINE = InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT = Compact;
+);
+
+CREATE TABLE `identificationtype` (
+  `code` VARCHAR(90) NOT NULL,
+  `name` VARCHAR(180) NOT NULL,
+  `legalcode` VARCHAR(90) NULL,
+  `status` VARCHAR(18) NOT NULL DEFAULT 'Active',
+  PRIMARY KEY (`code`));
 
 -- Update foreign keys of attributeinstance
 ALTER TABLE `attributeinstance` ADD CONSTRAINT `attinst_att`
@@ -1000,6 +1008,11 @@ INSERT INTO pickup_number VALUES(1);
 INSERT INTO ticketsnum VALUES(1);
 INSERT INTO ticketsnum_refund VALUES(1);
 INSERT INTO ticketsnum_payment VALUES(1);
+
+INSERT INTO identificationtype(code, name) VALUES ('C', 'Cédula');
+INSERT INTO identificationtype(code, name) VALUES ('R', 'RUC');
+INSERT INTO identificationtype(code, name) VALUES ('P', 'Pasaporte');
+INSERT INTO identificationtype(code, name) VALUES ('CF', 'Consumidor Final');
 
 -- ADD APPLICATION VERSION
 INSERT INTO applications(id, name, version) VALUES($APP_ID{}, $APP_NAME{}, $APP_VERSION{});
