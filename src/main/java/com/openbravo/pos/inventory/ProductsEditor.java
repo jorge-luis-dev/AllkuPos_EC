@@ -1,21 +1,21 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Allku Pos  - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
-//    https://unicenta.com
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of Allku Pos
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    Allku Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    Allku Pos is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+//    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 package com.openbravo.pos.inventory;
 
@@ -56,6 +56,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Jack Gerrard
@@ -200,7 +202,15 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     m_jGrossProfit.getDocument().addDocumentListener(new MarginManager());
 
     m_jdate.getDocument().addDocumentListener(dirty);
-
+    
+    m_jRef.setEnabled(false);
+    m_jCodetype.setVisible(false);
+    jLabel26.setVisible(false);
+    m_jUom.setVisible(false);
+    m_jSupplier.setVisible(false);
+    jBtnSupplier.setVisible(false);
+    jLabel17.setVisible(false);
+    
     init();
   }
 
@@ -400,20 +410,20 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     reportlock = false;
 
 // Tab General
-    m_jRef.setEnabled(true);
+//    m_jRef.setEnabled(true);
     m_jCode.setEnabled(true);
-    m_jCodetype.setEnabled(true);
+//    m_jCodetype.setEnabled(true);
     m_jName.setEnabled(true);
     m_jCategory.setEnabled(true);
     m_jTax.setEnabled(true);
     m_jAtt.setEnabled(true);
     m_jVerpatrib.setEnabled(true);
-    m_jUom.setEnabled(true);
+//    m_jUom.setEnabled(true);
     m_jPriceBuy.setEnabled(true);
     m_jPriceSell.setEnabled(true);
     m_jPriceSellTax.setEnabled(true);
     m_jmargin.setEnabled(true);
-    m_jSupplier.setEnabled(true);
+//    m_jSupplier.setEnabled(true);
 
 // Tab Stock        
     m_jInCatalog.setEnabled(true);
@@ -457,9 +467,18 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     Object[] myprod = new Object[32];
 
     myprod[0] = m_oId == null ? UUID.randomUUID().toString() : m_oId;
-    myprod[1] = m_jRef.getText();
-    myprod[2] = m_jCode.getText();
-    myprod[3] = m_jCodetype.getSelectedItem();
+
+//    myprod[1] = m_jRef.getText();
+    myprod[1] = getSequence();
+//    myprod[2] = m_jCode.getText();
+    if(m_jCode.getText().equals("") || m_jCode.getText() == null || m_jCode.getText().isEmpty()) {
+        myprod[2] = myprod[1];
+    }
+    else {
+        myprod[2] = m_jCode.getText();
+    }
+    
+//    myprod[3] = m_jCodetype.getSelectedItem();
     myprod[4] = m_jName.getText();
     myprod[5] = Formats.CURRENCY.parseValue(m_jPriceBuy.getText());
     myprod[6] = pricesell;
@@ -550,20 +569,20 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     reportlock = false;
 
 // Tab General
-    m_jRef.setEnabled(true);
+//    m_jRef.setEnabled(true);
     m_jCode.setEnabled(true);
-    m_jCodetype.setEnabled(true);
+//    m_jCodetype.setEnabled(true);
     m_jName.setEnabled(true);
     m_jCategory.setEnabled(true);
     m_jTax.setEnabled(true);
     m_jAtt.setEnabled(true);
     m_jVerpatrib.setEnabled(true);
-    m_jUom.setEnabled(true);
+//    m_jUom.setEnabled(true);
     m_jPriceBuy.setEnabled(true);
     m_jPriceSell.setEnabled(true);
     m_jPriceSellTax.setEnabled(true);
     m_jmargin.setEnabled(true);
-    m_jSupplier.setEnabled(true);
+//    m_jSupplier.setEnabled(true);
 
 // Tab Stock        
     m_jInCatalog.setEnabled(true);
@@ -2276,6 +2295,17 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     }
   }//GEN-LAST:event_m_jInCatalogActionPerformed
 
+  private String getSequence() {
+      SentenceList sequence = dlSales.getProductSequence();
+      try {
+          List l = sequence.list("sequence");
+          return (String) l.get(0);
+      } catch (BasicException ex) {
+          Logger.getLogger(ProductsEditor.class.getName()).log(Level.SEVERE, null, ex);
+          return "0";
+      }
+  }
+  
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private com.alee.extended.colorchooser.WebColorPicker colourChooser;
   private javax.swing.JButton jBtnBold;

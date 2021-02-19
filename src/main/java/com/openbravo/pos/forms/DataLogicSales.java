@@ -2842,4 +2842,16 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 return i;
                 });
     }
+    
+    // Product sequence max + 1 in reference    
+    public SentenceList getProductSequence() {
+        return new StaticSentence(s,
+                "select cast(max(cast(reference as unsigned) + 1) as char(10)) as sequence from products",
+                null, 
+                new SerializerRead() {
+                    public Object readValues(DataRead dr) throws BasicException {
+                        return new String(dr.getString(1));
+                    }
+                });
+    }
 }

@@ -169,7 +169,7 @@ CREATE TABLE `customers` (
 	`isvip` bit(1) NOT NULL default b'0',
 	`discount` double default '0',
 	`memodate` datetime default '2000-01-01 00:00:01',
-        `type` varchar(18) NOT NULL,
+        `type` varchar(18) NOT NULL default 'C',
 	KEY `customers_card_inx` ( `card` ),
 	KEY `customers_name_inx` ( `name` ),
 	UNIQUE INDEX `customers_skey_inx` ( `searchkey` ),
@@ -312,7 +312,7 @@ CREATE TABLE `products` (
 	`id` varchar(255) NOT NULL,
 	`reference` varchar(255) NOT NULL,
 	`code` varchar(255) NOT NULL,
-	`codetype` varchar(255) default NULL,
+	`codetype` varchar(255) DEFAULT 'CODE128',
 	`name` varchar(255) NOT NULL,
 	`pricebuy` double NOT NULL default '0',
 	`pricesell` double NOT NULL default '0',
@@ -929,29 +929,31 @@ INSERT INTO resources(id, name, restype, content) VALUES('73', 'script.SendOrder
 INSERT INTO resources(id, name, restype, content) VALUES('74', 'script.Totaldiscount', 0, $FILE{/com/openbravo/pos/templates/script.Totaldiscount.txt});
 
 -- ADD CATEGORIES
-INSERT INTO categories(id, name) VALUES ('000', 'Category Standard');
+INSERT INTO categories(id, name) VALUES ('000', 'Categoría Standard');
 
 -- ADD TAXCATEGORIES
 /* 002 added 31/01/2017 00:00:00. */
-INSERT INTO taxcategories(id, name) VALUES ('000', 'Tax Exempt');
-INSERT INTO taxcategories(id, name) VALUES ('001', 'Tax Standard');
-INSERT INTO taxcategories(id, name) VALUES ('002', 'Tax Other');
+INSERT INTO taxcategories(id, name) VALUES ('000', 'IVA 0');
+INSERT INTO taxcategories(id, name) VALUES ('001', 'IVA 12');
 
 -- ADD TAXES
 /* 002 added 31/01/2017 00:00:00. */
-INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder) VALUES ('000', 'Tax Exempt', '000', NULL, NULL, 0, FALSE, NULL);
-INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder) VALUES ('001', 'Tax Standard', '001', NULL, NULL, 0.20, FALSE, NULL);
-INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder) VALUES ('002', 'Tax Other', '002', NULL, NULL, 0, FALSE, NULL);
+INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder) VALUES ('000', 'IVA 0', '000', NULL, NULL, 0, FALSE, NULL);
+INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade, rateorder) VALUES ('001', 'IVA 12', '001', NULL, NULL, 0.12, FALSE, NULL);
 
 -- ADD PRODUCTS
-INSERT INTO products(id, reference, code, name, category, taxcat, isservice, display, printto) 
-VALUES ('xxx999_999xxx_x9x9x9', 'xxx999', 'xxx999', 'Free Line entry', '000', '001', 1, '<html><center>Free Line entry', '1');
-INSERT INTO products(id, reference, code, name, category, taxcat, isservice, display, printto) 
-VALUES ('xxx998_998xxx_x8x8x8', 'xxx998', 'xxx998', 'Service Charge', '000', '001', 1, '<html><center>Service Charge', '1');
+INSERT INTO products(id,reference,code,codetype,name,pricebuy,pricesell,category,taxcat,stockcost,stockvolume,isservice,display,isvprice,isverpatrib,texttip,warranty,stockunits,printto,supplier,uom) 
+VALUES ('1','1','1','CODE128','Producto sin IVA',0,1,'000','000',0,0,0,'<html><center>Producto sin IVA',0,0,'',0,0,'1','0','0');
+INSERT INTO products(id,reference,code,codetype,name,pricebuy,pricesell,category,taxcat,stockcost,stockvolume,isservice,display,isvprice,isverpatrib,texttip,warranty,stockunits,printto,supplier,uom) 
+VALUES ('2','2','2','CODE128','Producto con IVA',0,1,'000','001',0,0,0,'<html><center>Producto con IVA',0,0,'',0,0,'1','0','0');
 
 -- ADD PRODUCTS_CAT
-INSERT INTO products_cat(product) VALUES ('xxx999_999xxx_x9x9x9');
-INSERT INTO products_cat(product) VALUES ('xxx998_998xxx_x8x8x8');
+INSERT INTO products_cat(product) VALUES ('1');
+INSERT INTO products_cat(product) VALUES ('2');
+
+-- ADD Consumidor Final CUSTOMERS
+INSERT INTO customers (id,searchkey,taxid,name,maxdebt,address,address2,type,firstname,lastname,notes,visible,isvip,discount) 
+VALUES ('9999999999999','9999999999999','9999999999999','Consumidor Final',0,'Ibarra',NULL,'CF','Final','Consumidor','',1,0,0);
 
 -- ADD LOCATION
 INSERT INTO locations(id, name, address) VALUES ('0','Location 1','Local');
