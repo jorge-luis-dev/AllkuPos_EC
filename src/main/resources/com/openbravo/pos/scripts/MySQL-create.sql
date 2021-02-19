@@ -18,9 +18,9 @@
 --    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
- * Script created by Jack, uniCenta 23/01/2018 08:00:00
+ * Script created by Jack 23/01/2018 08:00:00
  *
- * Creating for version unicentaopos45. Jan 2018
+ * Updated for version AllkuPos 2021
 */
 
 /* Header line. Object: applications. Script date: 23/01/2018 08:00:00 */
@@ -959,10 +959,10 @@ VALUES ('9999999999999','9999999999999','9999999999999','Consumidor Final',0,'Ib
 INSERT INTO locations(id, name, address) VALUES ('0','Location 1','Local');
 
 -- ADD SUPPLIERS
-INSERT INTO suppliers(id, searchkey, name) VALUES ('0','uniCenta','uniCenta');
+INSERT INTO suppliers(id, searchkey, name) VALUES ('0','Allku Expert','Allku Expert');
 
 -- ADD UOM
-INSERT INTO uom(id, name) VALUES ('0','Each');
+INSERT INTO uom(id, name) VALUES ('0','Unidad');
 
 -- ADD FLOORS
 INSERT INTO floors(id, name, image) VALUES ('0', 'Restaurant floor', $FILE{/com/openbravo/images/paperboard960_600.png});
