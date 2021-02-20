@@ -1007,8 +1007,8 @@ INSERT INTO shift_breaks(id, shiftid, breakid, starttime, endtime) VALUES ('0', 
 
 -- ADD SEQUENCES
 INSERT INTO pickup_number VALUES(1);
-INSERT INTO ticketsnum VALUES(1);
-INSERT INTO ticketsnum_refund VALUES(1);
+INSERT INTO ticketsnum VALUES(0);
+INSERT INTO ticketsnum_refund VALUES(0);
 INSERT INTO ticketsnum_payment VALUES(1);
 
 INSERT INTO identificationtype(code, name) VALUES ('C', 'Cédula');
