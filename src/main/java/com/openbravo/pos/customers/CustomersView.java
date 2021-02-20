@@ -763,7 +763,7 @@ public void resetTranxTable() {
         m_jSearchkey.setPreferredSize(new java.awt.Dimension(140, 30));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText(AppLocal.getIntString("label.namem")); // NOI18N
+        jLabel3.setText(AppLocal.getIntString("label.formal_name")); // NOI18N
         jLabel3.setMaximumSize(new java.awt.Dimension(140, 25));
         jLabel3.setMinimumSize(new java.awt.Dimension(140, 25));
         jLabel3.setPreferredSize(new java.awt.Dimension(150, 30));
