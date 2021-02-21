@@ -2828,7 +2828,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
     public SentenceList getIdentificationList() {
         return new StaticSentence(s, 
         new QBFBuilder("select code, name from identificationtype " +
-                       "where status = 'Active' " +
+                       "where status = 'Activo' " +
                        "order by name",
                         new String[] {"code", "name"}),
                 new SerializerWriteBasic(new Datas[] {

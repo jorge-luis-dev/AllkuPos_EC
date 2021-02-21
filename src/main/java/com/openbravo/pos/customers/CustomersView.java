@@ -49,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -90,7 +92,8 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         m_CategoryModel = new ComboBoxValModel();
         
         sentenceIdentificationType = dlSales.getIdentificationList();
-        modelIdentificationType = new ComboBoxValModel();
+        modelIdentificationType = new ComboBoxValModel(
+                sentenceIdentificationType.list());
         
         m_Dirty = dirty;        
         m_jTaxID.getDocument().addDocumentListener(dirty);
@@ -130,6 +133,8 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
             init();
         } catch (BeanFactoryException ex) {
             log.error(ex.getMessage());
+        } catch (BasicException ex) {
+            Logger.getLogger(CustomersView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -149,8 +154,6 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         m_CategoryModel = new ComboBoxValModel(a);
         m_jCategory.setModel(m_CategoryModel); 
 
-        modelIdentificationType = new ComboBoxValModel(
-                sentenceIdentificationType.list());
         cBoxIdentificationType.setModel(modelIdentificationType);
         
         String cId = null;

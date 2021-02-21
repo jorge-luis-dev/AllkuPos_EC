@@ -673,7 +673,7 @@ CREATE TABLE `identificationtype` (
   `code` VARCHAR(90) NOT NULL,
   `name` VARCHAR(180) NOT NULL,
   `legalcode` VARCHAR(90) NULL,
-  `status` VARCHAR(18) NOT NULL DEFAULT 'Active',
+  `status` VARCHAR(18) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`code`));
 
 -- Update foreign keys of attributeinstance

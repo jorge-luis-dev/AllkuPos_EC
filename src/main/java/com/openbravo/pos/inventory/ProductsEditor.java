@@ -204,7 +204,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     m_jdate.getDocument().addDocumentListener(dirty);
     
     m_jRef.setEnabled(false);
-    m_jCodetype.setVisible(false);  
+    m_jCodetype.setEnabled(false);  
     
     init();
   }
@@ -473,7 +473,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
         myprod[2] = m_jCode.getText();
     }
     
-//    myprod[3] = m_jCodetype.getSelectedItem();
+    myprod[3] = m_jCodetype.getSelectedItem();
     myprod[4] = m_jName.getText();
     myprod[5] = Formats.CURRENCY.parseValue(m_jPriceBuy.getText());
     myprod[6] = pricesell;
@@ -1163,7 +1163,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
         m_jRef = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         m_jCode = new javax.swing.JTextField();
-        m_jCodetype = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         m_jName = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -1246,6 +1245,8 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
         jLabel17 = new javax.swing.JLabel();
         m_jSupplier = new javax.swing.JComboBox();
         jBtnSupplier = new javax.swing.JButton();
+        m_jCodetype = new javax.swing.JComboBox();
+        jLabel24 = new javax.swing.JLabel();
 
         setLayout(null);
 
@@ -1299,10 +1300,6 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                 m_jCodeFocusLost(evt);
             }
         });
-
-        m_jCodetype.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        m_jCodetype.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EAN-13", "EAN-8", "CODE128", "Upc-A", "Upc-E" }));
-        m_jCodetype.setPreferredSize(new java.awt.Dimension(80, 30));
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText(AppLocal.getIntString("label.prodnamem")); // NOI18N
@@ -1412,10 +1409,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                                 .addComponent(m_jGrossProfit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(m_jmargin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(m_jTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(m_jCodetype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(m_jTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(m_jCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1447,8 +1441,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(m_jCodetype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(m_jTax, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2086,6 +2079,13 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
             }
         });
 
+        m_jCodetype.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        m_jCodetype.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CODE128", "EAN-13", "EAN-8", "Upc-A", "Upc-E" }));
+        m_jCodetype.setPreferredSize(new java.awt.Dimension(80, 30));
+
+        jLabel24.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel24.setText("Tipo");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -2105,9 +2105,13 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(m_jVerpatrib, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel24))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(m_jSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(m_jCodetype, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(m_jSupplier, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBtnSupplier)))
                 .addContainerGap(166, Short.MAX_VALUE))
@@ -2129,7 +2133,11 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(m_jSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBtnSupplier))
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(m_jCodetype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel24))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Otros", jPanel5);
@@ -2245,7 +2253,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 
   private void m_jCodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jCodeFocusLost
     if (m_jCode.getText().length() < 8) {
-      m_jCodetype.setSelectedIndex(2);
+      m_jCodetype.setSelectedIndex(0);
     }
   }//GEN-LAST:event_m_jCodeFocusLost
 
@@ -2331,6 +2339,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
