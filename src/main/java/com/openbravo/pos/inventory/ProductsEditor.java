@@ -2072,7 +2072,7 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 
         jBtnSupplier.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jBtnSupplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/customer_add_sml.png"))); // NOI18N
-        jBtnSupplier.setText(bundle.getString("label.supplier")); // NOI18N
+        jBtnSupplier.setText(bundle.getString("label.suppliername")); // NOI18N
         jBtnSupplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnSupplierActionPerformed(evt);

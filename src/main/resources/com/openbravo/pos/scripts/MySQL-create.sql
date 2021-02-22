@@ -169,7 +169,7 @@ CREATE TABLE `customers` (
 	`isvip` bit(1) NOT NULL default b'0',
 	`discount` double default '0',
 	`memodate` datetime default '2000-01-01 00:00:01',
-        `type` varchar(18) NOT NULL default 'C',
+        `type` varchar(18) NOT NULL,
 	KEY `customers_card_inx` ( `card` ),
 	KEY `customers_name_inx` ( `name` ),
 	UNIQUE INDEX `customers_skey_inx` ( `searchkey` ),
@@ -529,6 +529,7 @@ CREATE TABLE `suppliers` (
 	`curdate` datetime default NULL,
 	`curdebt` double default '0',
 	`vatid` varchar(255) default NULL,
+        `type` varchar(18) NOT NULL,
 	PRIMARY KEY  ( `id` ),
 	KEY `suppliers_name_inx` ( `name` ),
 	UNIQUE INDEX `suppliers_skey_inx` ( `searchkey` )
@@ -943,9 +944,9 @@ INSERT INTO taxes(id, name, category, custcategory, parentid, rate, ratecascade,
 
 -- ADD PRODUCTS
 INSERT INTO products(id,reference,code,codetype,name,pricebuy,pricesell,category,taxcat,stockcost,stockvolume,isservice,display,isvprice,isverpatrib,texttip,warranty,stockunits,printto,supplier,uom) 
-VALUES ('1','1','1','CODE128','Producto sin IVA',0,1,'000','000',0,0,0,'<html><center>Producto sin IVA',0,0,'',0,0,'1','0','0');
+VALUES ('1','1','1','CODE128','Producto sin IVA',0,1,'000','000',0,0,0,'<html><center>Producto sin IVA',0,0,'',0,0,'1','9999999999999','0');
 INSERT INTO products(id,reference,code,codetype,name,pricebuy,pricesell,category,taxcat,stockcost,stockvolume,isservice,display,isvprice,isverpatrib,texttip,warranty,stockunits,printto,supplier,uom) 
-VALUES ('2','2','2','CODE128','Producto con IVA',0,1,'000','001',0,0,0,'<html><center>Producto con IVA',0,0,'',0,0,'1','0','0');
+VALUES ('2','2','2','CODE128','Producto con IVA',0,1,'000','001',0,0,0,'<html><center>Producto con IVA',0,0,'',0,0,'1','9999999999999','0');
 
 -- ADD PRODUCTS_CAT
 INSERT INTO products_cat(product) VALUES ('1');
@@ -959,7 +960,7 @@ VALUES ('9999999999999','9999999999999','9999999999999','Consumidor Final',0,'Ib
 INSERT INTO locations(id, name, address) VALUES ('0','Location 1','Local');
 
 -- ADD SUPPLIERS
-INSERT INTO suppliers(id, searchkey, name) VALUES ('0','Allku Expert','Allku Expert');
+INSERT INTO suppliers(id, searchkey, taxid, name, maxdebt, type) VALUES ('9999999999999','9999999999999','9999999999999','Otros proveedores',0,'CF');
 
 -- ADD UOM
 INSERT INTO uom(id, name) VALUES ('0','Unidad');
