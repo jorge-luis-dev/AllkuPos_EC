@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import expert.allku.identification.*;
 
 public class JDialogNewCustomer extends javax.swing.JDialog {
     
@@ -224,6 +225,11 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
 
         m_jName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         m_jName.setPreferredSize(new java.awt.Dimension(300, 30));
+        m_jName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m_jNameFocusGained(evt);
+            }
+        });
 
         jLblSearchkey.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLblSearchkey.setText(AppLocal.getIntString("label.searchkeym")); // NOI18N
@@ -499,14 +505,9 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
 
     private void m_jBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnOKActionPerformed
 
-        if ("".equals(m_jTaxID.getText())
-                || "".equals(m_jName.getText())) {
-            JOptionPane.showMessageDialog(
-                null, 
-                    AppLocal.getIntString("message.customercheck"), 
-                    "Validación del cliente", 
-                JOptionPane.ERROR_MESSAGE); 
-        } else {    
+         if (validateBlank() && 
+                 validateIdentification((String) modelIdentificationType.getSelectedKey(), 
+                         m_jTaxID.getText())) {            
             try {
                 m_oId = m_jTaxID.getText();//UUID.randomUUID().toString();
                 Object customer = createValue();
@@ -530,6 +531,52 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_m_jBtnOKActionPerformed
 
+    private Boolean validateBlank() {
+        if ("".equals(m_jTaxID.getText())
+                || "".equals(m_jName.getText())) {
+            JOptionPane.showMessageDialog(
+                null, 
+                AppLocal.getIntString("message.customercheck"), 
+                "Validación del cliente", 
+                JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    
+    private Boolean validateIdentification(String identificationType, String identification) {
+        if (identificationType.equals("C")) {
+            Ci ci = new Ci(identification);
+            if(!ci.validar()) {
+                JOptionPane.showMessageDialog(this,
+                        ci.getError(), 
+                        "Error al validar la cédula", 
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        else if (identificationType.equals("R")) {
+            Ruc ruc = new Ruc(identification);
+            if(!ruc.validar()) {
+                JOptionPane.showMessageDialog(this,
+                        ruc.getError(), 
+                        "Error al validar la RUC", 
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        else if (identificationType.equals("CF")) {
+            if (!identification.equals("9999999999999")) {
+                JOptionPane.showMessageDialog(this,
+                        "El consumidor final debe ser 9999999999999", 
+                        "Error al validar el Consumidor Final", 
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+    
     private void m_jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnCancelActionPerformed
         dispose();        
     }//GEN-LAST:event_m_jBtnCancelActionPerformed
@@ -537,6 +584,12 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
 private void m_jVipnone(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_m_jVipnone
 
 }//GEN-LAST:event_m_jVipnone
+
+    private void m_jNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jNameFocusGained
+        if (m_jName.getText().isEmpty()) {
+            m_jName.setText(txtLastName.getText() + " " + txtFirstName.getText());
+        }
+    }//GEN-LAST:event_m_jNameFocusGained
 
     private void disableItems() {
         jLblSearchkey.setVisible(false);
