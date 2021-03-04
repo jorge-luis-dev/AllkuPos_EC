@@ -37,6 +37,8 @@ import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import expert.allku.identification.*;
+import javax.swing.JOptionPane;
 
 public class JDialogNewSupplier extends javax.swing.JDialog {
     
@@ -213,6 +215,11 @@ public class JDialogNewSupplier extends javax.swing.JDialog {
 
         m_jName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         m_jName.setPreferredSize(new java.awt.Dimension(400, 30));
+        m_jName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m_jNameFocusGained(evt);
+            }
+        });
 
         jLblFirstName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLblFirstName.setText(AppLocal.getIntString("label.firstname")); // NOI18N
@@ -394,28 +401,84 @@ public class JDialogNewSupplier extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnOKActionPerformed
-        try {
-            m_oId = m_jTaxID.getText();//UUID.randomUUID().toString();
-            Object supplier = createValue() ;                       
-            int status = tsuppliers.getInsertSentence().exec(supplier);
-            if (status>0){
-                selectedSupplier =  dlSales.loadSupplierExt(m_oId.toString());
-                dispose();
-            }else{
-                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, 
-                       LocalRes.getIntString("message.nosave"), "Error save");
-               msg.show(this);
+        if (validateBlank() && 
+                 validateIdentification((String) modelIdentificationType.getSelectedKey(), 
+                         m_jTaxID.getText())) { 
+            try {
+                m_oId = m_jTaxID.getText();//UUID.randomUUID().toString();
+                Object supplier = createValue() ;                       
+                int status = tsuppliers.getInsertSentence().exec(supplier);
+                if (status>0){
+                    selectedSupplier =  dlSales.loadSupplierExt(m_oId.toString());
+                    dispose();
+                }else{
+                    MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, 
+                           LocalRes.getIntString("message.nosave"), "Error save");
+                   msg.show(this);
+                }
+            } catch (BasicException ex) {
+               MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, 
+                       LocalRes.getIntString("message.nosave"), ex);
+                msg.show(this);
             }
-        } catch (BasicException ex) {
-           MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, 
-                   LocalRes.getIntString("message.nosave"), ex);
-            msg.show(this);
         }
     }//GEN-LAST:event_m_jBtnOKActionPerformed
+    
+    private Boolean validateBlank() {
+        if ("".equals(m_jTaxID.getText())
+                || "".equals(m_jName.getText())) {
+            JOptionPane.showMessageDialog(
+                null, 
+                AppLocal.getIntString("message.customercheck"), 
+                "Validación del cliente", 
+                JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
+    private Boolean validateIdentification(String identificationType, String identification) {
+        if (identificationType.equals("C")) {
+            Ci ci = new Ci(identification);
+            if(!ci.validar()) {
+                JOptionPane.showMessageDialog(this,
+                        ci.getError(), 
+                        "Error al validar la cédula", 
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        else if (identificationType.equals("R")) {
+            Ruc ruc = new Ruc(identification);
+            if(!ruc.validar()) {
+                JOptionPane.showMessageDialog(this,
+                        ruc.getError(), 
+                        "Error al validar la RUC", 
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        else if (identificationType.equals("CF")) {
+            if (!identification.equals("9999999999999")) {
+                JOptionPane.showMessageDialog(this,
+                        "El consumidor final debe ser 9999999999999", 
+                        "Error al validar el Consumidor Final", 
+                        JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+    
     private void m_jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnCancelActionPerformed
         dispose();        
     }//GEN-LAST:event_m_jBtnCancelActionPerformed
+
+    private void m_jNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jNameFocusGained
+        if (m_jName.getText().isEmpty()) {
+            m_jName.setText(txtLastName.getText() + " " + txtFirstName.getText());
+        }
+    }//GEN-LAST:event_m_jNameFocusGained
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
