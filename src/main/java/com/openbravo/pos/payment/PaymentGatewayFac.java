@@ -39,9 +39,9 @@ public class PaymentGatewayFac {
             case "external":
                 return new PaymentGatewayExt();
             case "Dejavoo":
-                return new PaymentGatewayDejavoo();
+                return new PaymentGatewayExt();
             case "PaymentSense":
-                return new PaymentGatewayPaymentSense();
+                return new PaymentGatewayExt();
             case "Vantiv":
 //                return new PaymentGatewayVantiv();                
             default:

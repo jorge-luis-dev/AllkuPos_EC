@@ -1838,10 +1838,12 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
               } catch (IOException ex) {
                 log.error(ex.getMessage());
               }
-
+              /*
+              // Commented by Jorge Luis, to disable print ticket unicanta pos app
+              // uk.co.pos_apps.PosApps
               executeEvent(ticket, ticketext, "ticket.close",
                       new ScriptArg("print", paymentdialog.isPrintSelected()));
-
+              */
               printTicket(paymentdialog.isPrintSelected() || warrantyPrint
                       ? "Printer.Ticket"
                       : "Printer.Ticket2", ticket, ticketext);
