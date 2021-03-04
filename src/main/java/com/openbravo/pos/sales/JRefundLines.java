@@ -1,33 +1,35 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Allku Pos  - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
-//    https://unicenta.com
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of Allku Pos
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    Allku Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    Allku Pos is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+//    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 package com.openbravo.pos.sales;
 
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.DataLogicSystem;
+import com.openbravo.pos.ticket.TicketInfo;
 import com.openbravo.pos.ticket.TicketLineInfo;
 import java.awt.BorderLayout;
+import static java.lang.Math.abs;
 import java.util.List;
 
 /**
  *
- * @author JG uniCenta
+ * @author JG uniCenta, Jorge Luis
  */
 public class JRefundLines extends javax.swing.JPanel {
     
@@ -167,41 +169,120 @@ public JRefundLines(DataLogicSystem dlSystem, JPanelTicketEdits jTicketEdit) {
 
         add(jPanel3, java.awt.BorderLayout.WEST);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Refound all items in list
+     * @param evt 
+     */
     private void m_jbtnAddAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jbtnAddAllActionPerformed
-
+        double quantityRefound = 0;
+        double quantity = 0;
+        
         for (int i = 0; i < m_aLines.size(); i++) {
             TicketLineInfo oLine = (TicketLineInfo) m_aLines.get(i);
-            TicketLineInfo oNewLine = new TicketLineInfo(oLine);            
-            oNewLine.setMultiply(-oLine.getMultiply());
-            m_jTicketEdit.addTicketLine(oNewLine);
+            TicketLineInfo oNewLine = new TicketLineInfo(oLine);
+
+            // Count quantity of item by code
+            quantity = countQuantityItem(oNewLine.getProductID());
+            
+            // Count quantity refound of item by code
+            quantityRefound = countQuantityRefoundItem(oNewLine.getProductID());
+            
+            // Compare quantity
+            if (quantity >= (quantityRefound + abs(oLine.getMultiply()))) {                    
+                oNewLine.setMultiply(-oLine.getMultiply());
+                m_jTicketEdit.addTicketLine(oNewLine);
+            }
+            quantityRefound = 0;
+            quantity = 0;
         }
         
     }//GEN-LAST:event_m_jbtnAddAllActionPerformed
-
+    /**
+     * Refound one item, one by one
+     * @param evt 
+     */
     private void m_jbtnAddOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jbtnAddOneActionPerformed
-
+        double quantityRefound = 0;
+        double quantity = 0;
+        
         int index = ticketlines.getSelectedIndex();
         if (index >= 0) {
             TicketLineInfo oLine = (TicketLineInfo) m_aLines.get(index);
             TicketLineInfo oNewLine = new TicketLineInfo(oLine);
-            oNewLine.setMultiply(-1.0);
-            m_jTicketEdit.addTicketLine(oNewLine);
+            
+            // Count quantity of item by code
+            quantity = countQuantityItem(oNewLine.getProductID());
+            
+            // Count quantity refound of item by code
+            quantityRefound = countQuantityRefoundItem(oNewLine.getProductID());
+            
+            // Compare quantity
+            if (quantity > quantityRefound) {
+                oNewLine.setMultiply(-1.0);
+                m_jTicketEdit.addTicketLine(oNewLine);
+            }
         }   
         
     }//GEN-LAST:event_m_jbtnAddOneActionPerformed
-
+    /**
+     * Refound one line
+     * @param evt 
+     */
     private void m_jbtnAddLineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jbtnAddLineActionPerformed
-
+        double quantityRefound = 0;
+        double quantity = 0;
+        
         int index = ticketlines.getSelectedIndex();
         if (index >= 0) {
             TicketLineInfo oLine = (TicketLineInfo) m_aLines.get(index);
-            TicketLineInfo oNewLine = new TicketLineInfo(oLine);            
-            oNewLine.setMultiply(-oLine.getMultiply());
-            m_jTicketEdit.addTicketLine(oNewLine);
+            TicketLineInfo oNewLine = new TicketLineInfo(oLine); 
+            
+            // Count quantity of item by code
+            quantity = countQuantityItem(oNewLine.getProductID());
+            
+            // Count quantity refound of item by code
+            quantityRefound = countQuantityRefoundItem(oNewLine.getProductID());
+            
+            // Compare quantity
+            if (quantity >= (quantityRefound + abs(oLine.getMultiply()))) {                    
+                oNewLine.setMultiply(-oLine.getMultiply());
+                m_jTicketEdit.addTicketLine(oNewLine);
+            }
         }        
     }//GEN-LAST:event_m_jbtnAddLineActionPerformed
-    
+    /**
+     * Count quantity of item by code
+     * @param productId
+     * @return 
+     */
+    private double countQuantityItem(String productId) {
+        double quantity = 0;
+        
+        for(int i = 0; i < m_aLines.size(); i++) {
+            TicketLineInfo line = (TicketLineInfo) m_aLines.get(i);
+            if (productId.equals(line.getProductID())) {
+                quantity = quantity + line.getMultiply();
+            }
+        }
+        return abs(quantity);
+    }
+    /**
+     * Count quantity refound of item by code
+     * @param productId
+     * @return 
+     */
+    private double countQuantityRefoundItem(String productId) {
+        TicketInfo refoundTicket = m_jTicketEdit.m_oTicket;
+        double quantityRefound = 0;
+        
+        for (int i = 0; i < refoundTicket.getLinesCount(); i++) {
+            TicketLineInfo refoundLine = refoundTicket.getLine(i);
+            if (productId.equals(refoundLine.getProductID())) {
+                quantityRefound = quantityRefound + refoundLine.getMultiply();
+            }
+        }
+        return abs(quantityRefound);
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
