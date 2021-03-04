@@ -196,6 +196,9 @@
           <Dimension value="[410, 30]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="m_jNameFocusGained"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
       <Properties>
@@ -1365,6 +1368,9 @@
           <Dimension value="[300, 30]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtFirstNameFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtLastName">
       <Properties>
@@ -1375,6 +1381,9 @@
           <Dimension value="[300, 30]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtLastNameFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel19">
       <Properties>

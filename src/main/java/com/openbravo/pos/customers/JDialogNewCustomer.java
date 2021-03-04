@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.UUID;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import expert.allku.identification.*;
+import expert.allku.identification.Validate;
 
 public class JDialogNewCustomer extends javax.swing.JDialog {
     
@@ -504,78 +504,32 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jBtnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnOKActionPerformed
-
-         if (validateBlank() && 
-                 validateIdentification((String) modelIdentificationType.getSelectedKey(), 
-                         m_jTaxID.getText())) {            
+        Validate validate = new Validate();
+        if (validate.blank(m_jTaxID.getText(), m_jName.getText())
+                && validate.identification((String) modelIdentificationType.getSelectedKey(),
+                        m_jTaxID.getText())) {
             try {
                 m_oId = m_jTaxID.getText();//UUID.randomUUID().toString();
                 Object customer = createValue();
 
                 int status = tcustomers.getInsertSentence().exec(customer);
-            
-                if (status>0){
-                    selectedCustomer =  dlSales.loadCustomerExt(m_oId.toString());
+
+                if (status > 0) {
+                    selectedCustomer = dlSales.loadCustomerExt(m_oId.toString());
                     dispose();
                 } else {
-                    MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, 
-                       LocalRes.getIntString("message.nosave"), "Error save");
+                    MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE,
+                            LocalRes.getIntString("message.nosave"), "Error save");
                     msg.show(this);
                 }
-        
+
             } catch (BasicException ex) {
-                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, 
-                   LocalRes.getIntString("message.nosave"), ex);
+                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE,
+                        LocalRes.getIntString("message.nosave"), ex);
                 msg.show(this);
             }
         }
     }//GEN-LAST:event_m_jBtnOKActionPerformed
-
-    private Boolean validateBlank() {
-        if ("".equals(m_jTaxID.getText())
-                || "".equals(m_jName.getText())) {
-            JOptionPane.showMessageDialog(
-                null, 
-                AppLocal.getIntString("message.customercheck"), 
-                "Validación del cliente", 
-                JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-        return true;
-    }
-    
-    private Boolean validateIdentification(String identificationType, String identification) {
-        if (identificationType.equals("C")) {
-            Ci ci = new Ci(identification);
-            if(!ci.validar()) {
-                JOptionPane.showMessageDialog(this,
-                        ci.getError(), 
-                        "Error al validar la cédula", 
-                        JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        else if (identificationType.equals("R")) {
-            Ruc ruc = new Ruc(identification);
-            if(!ruc.validar()) {
-                JOptionPane.showMessageDialog(this,
-                        ruc.getError(), 
-                        "Error al validar la RUC", 
-                        JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        else if (identificationType.equals("CF")) {
-            if (!identification.equals("9999999999999")) {
-                JOptionPane.showMessageDialog(this,
-                        "El consumidor final debe ser 9999999999999", 
-                        "Error al validar el Consumidor Final", 
-                        JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        return true;
-    }
     
     private void m_jBtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jBtnCancelActionPerformed
         dispose();        

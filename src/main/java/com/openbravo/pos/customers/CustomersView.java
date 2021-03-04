@@ -766,13 +766,18 @@ public void resetTranxTable() {
         m_jSearchkey.setPreferredSize(new java.awt.Dimension(140, 30));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText(AppLocal.getIntString("label.formal_name")); // NOI18N
+        jLabel3.setText(AppLocal.getIntString("label.namem")); // NOI18N
         jLabel3.setMaximumSize(new java.awt.Dimension(140, 25));
         jLabel3.setMinimumSize(new java.awt.Dimension(140, 25));
         jLabel3.setPreferredSize(new java.awt.Dimension(150, 30));
 
         m_jName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         m_jName.setPreferredSize(new java.awt.Dimension(410, 30));
+        m_jName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                m_jNameFocusGained(evt);
+            }
+        });
 
         jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(650, 300));
@@ -1424,9 +1429,19 @@ public void resetTranxTable() {
 
         txtFirstName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtFirstName.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtFirstName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtFirstNameFocusLost(evt);
+            }
+        });
 
         txtLastName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtLastName.setPreferredSize(new java.awt.Dimension(300, 30));
+        txtLastName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLastNameFocusLost(evt);
+            }
+        });
 
         jLabel19.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel19.setText(AppLocal.getIntString("label.firstname")); // NOI18N
@@ -1620,6 +1635,20 @@ public void resetTranxTable() {
                 AppLocal.getIntString("message.uuidcopy"));
         }
     }//GEN-LAST:event_jLabel7MouseClicked
+
+    private void m_jNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_m_jNameFocusGained
+        if (m_jName.getText().isEmpty()) {
+            m_jName.setText(txtLastName.getText() + " " + txtFirstName.getText());
+        }
+    }//GEN-LAST:event_m_jNameFocusGained
+
+    private void txtFirstNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFirstNameFocusLost
+        txtFirstName.setText(txtFirstName.getText().trim());
+    }//GEN-LAST:event_txtFirstNameFocusLost
+
+    private void txtLastNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLastNameFocusLost
+        txtLastName.setText(txtLastName.getText().trim());
+    }//GEN-LAST:event_txtLastNameFocusLost
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cBoxIdentificationType;

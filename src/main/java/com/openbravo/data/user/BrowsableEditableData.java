@@ -32,6 +32,7 @@ import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.DataLogicSystem;
 import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptFactory;
+import expert.allku.identification.Validate;
 
 /**
  *
@@ -407,10 +408,11 @@ public class BrowsableEditableData {
      * @throws BasicException
      */
     public void saveData() throws BasicException {
-
         //Get the customer being referenced for firing action events
         boolean isCustomerChangeEvent = false;
         Object[] customer = new Object[29];
+        Validate validate = new Validate();
+        
         if (m_editorrecord.getClass().getName().equals("com.openbravo.pos.customers.CustomersView")) {
             isCustomerChangeEvent = true;
             customer = (Object[]) m_editorrecord.createValue();
@@ -430,34 +432,43 @@ public class BrowsableEditableData {
             } else if (m_iState == ST_INSERT) {
 
                 if (isCustomerChangeEvent) {
-                    m_editorrecord.refresh();
+                    if (validate.blank(customer[0].toString(), customer[3].toString()) && 
+                            validate.identification(customer[27].toString(), 
+                                    customer[0].toString())) {
+                        m_editorrecord.refresh();
 
-                    AppView appView = (AppView) customer[28];
-                    int i = m_bd.insertRecord(customer);
-                    m_editorrecord.refresh();
-                    baseMoveTo(i);
+                        AppView appView = (AppView) customer[28];
+                        int i = m_bd.insertRecord(customer);
+                        m_editorrecord.refresh();
+                        baseMoveTo(i);
 
-                    triggerCustomerEvent("customer.created", customer, customer[28]);
+                        triggerCustomerEvent("customer.created", customer, customer[28]);
 
-                    int n = JOptionPane.showConfirmDialog(
-                          null, 
-                          AppLocal.getIntString("message.customerassign"), 
-                          AppLocal.getIntString("title.editor"), 
-                            JOptionPane.YES_NO_OPTION);
+                        int n = JOptionPane.showConfirmDialog(
+                              null, 
+                              AppLocal.getIntString("message.customerassign"), 
+                              AppLocal.getIntString("title.editor"), 
+                                JOptionPane.YES_NO_OPTION);
 
-                    if (n == 0) {
-                        CustomerInfoGlobal customerInfoGlobal = CustomerInfoGlobal.getInstance();
-                        CustomerInfoExt customerInfoExt = new CustomerInfoExt(customer[0].toString());
-                        customerInfoGlobal.setCustomerInfoExt(customerInfoExt);
-                        customerInfoExt.setName(customer[3].toString());
+                        if (n == 0) {
+                            CustomerInfoGlobal customerInfoGlobal = CustomerInfoGlobal.getInstance();
+                            CustomerInfoExt customerInfoExt = new CustomerInfoExt(customer[0].toString());
+                            customerInfoGlobal.setCustomerInfoExt(customerInfoExt);
+                            customerInfoExt.setName(customer[3].toString());
 
-                        appView.getAppUserView().showTask("com.openbravo.pos.sales.JPanelTicketSales");
+                            appView.getAppUserView().showTask("com.openbravo.pos.sales.JPanelTicketSales");
+                        }
                     }
 
                 } else {
-                    int i = m_bd.insertRecord(m_editorrecord.createValue());
-                    m_editorrecord.refresh();
-                    baseMoveTo(i);
+                    Object[] supplier = (Object[]) m_editorrecord.createValue();
+                    if (validate.blank(supplier[0].toString(), supplier[3].toString()) && 
+                            validate.identification(supplier[22].toString(), 
+                                    supplier[0].toString())) {
+                        int i = m_bd.insertRecord(supplier);
+                        m_editorrecord.refresh();
+                        baseMoveTo(i);
+                    }
                 }
 
             } else if (m_iState == ST_DELETE) {
