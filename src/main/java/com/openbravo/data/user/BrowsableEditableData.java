@@ -404,7 +404,7 @@ public class BrowsableEditableData {
     }
     
     /**
-     * Save data
+     * Save data Customer and Supplier
      * @throws BasicException
      */
     public void saveData() throws BasicException {

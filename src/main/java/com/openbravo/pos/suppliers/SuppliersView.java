@@ -377,7 +377,7 @@ public final class SuppliersView extends javax.swing.JPanel implements EditorRec
         modelIdentificationType.setSelectedKey(supplier[22]);
        
         m_jSearchkey.setEnabled(true);
-        m_jTaxID.setEnabled(true);
+        m_jTaxID.setEnabled(false);
         m_jName.setEnabled(true);
         txtMaxdebt.setEnabled(true);
         
@@ -404,7 +404,7 @@ public final class SuppliersView extends javax.swing.JPanel implements EditorRec
        
         jTableSupplierTransactions.setVisible(false);
         jTableSupplierTransactions.setEnabled(true);
-        cBoxIdentificationType.setEnabled(true);
+        cBoxIdentificationType.setEnabled(false);
         resetTranxTable();
         
         txtCurdate.repaint();
@@ -447,7 +447,7 @@ public void resetTranxTable() {
         supplier[0] = m_jTaxID.getText();//m_oId == null ? UUID.randomUUID().toString() : m_oId;
         supplier[1] = m_jTaxID.getText();//m_jSearchkey.getText();
         supplier[2] = m_jTaxID.getText();
-        supplier[3] = m_jName.getText();
+        supplier[3] = m_jName.getText().trim();
         supplier[4] = Formats.CURRENCY.parseValue(txtMaxdebt.getText(), 0.0);
         supplier[5] = Formats.STRING.parseValue(txtAddress.getText());
         supplier[6] = Formats.STRING.parseValue(txtAddress2.getText());

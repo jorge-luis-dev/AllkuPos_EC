@@ -90,7 +90,7 @@ public class JDialogNewSupplier extends javax.swing.JDialog {
         supplier[0] = m_oId;        
         supplier[1] = m_jTaxID.getText();//m_jSearchkey.getText();
         supplier[2] = m_jTaxID.getText();
-        supplier[3] = m_jName.getText();
+        supplier[3] = m_jName.getText().trim();
         supplier[4] = 0.0;
         supplier[5] = Formats.STRING.parseValue(txtAddress.getText());
         supplier[6] = null;

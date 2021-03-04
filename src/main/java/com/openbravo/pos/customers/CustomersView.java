@@ -441,7 +441,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         m_jdate.setText(Formats.DATE.formatValue(customer[26]));
         modelIdentificationType.setSelectedKey(customer[27]);
 
-        m_jTaxID.setEnabled(true);
+        m_jTaxID.setEnabled(false);
         m_jSearchkey.setEnabled(true);
         m_jName.setEnabled(true);
         m_jNotes.setEnabled(true);
@@ -473,7 +473,7 @@ public final class CustomersView extends javax.swing.JPanel implements EditorRec
         
         m_jdate.setEnabled(true);
         m_jbtndate.setEnabled(true);         
-        cBoxIdentificationType.setEnabled(true);
+        cBoxIdentificationType.setEnabled(false);
         jBtnCreateCard.setEnabled(true);
         jBtnClearCard.setEnabled(true);
         
@@ -520,7 +520,7 @@ public void resetTranxTable() {
         customer[0] = m_jTaxID.getText();//m_oId == null ? UUID.randomUUID().toString() : m_oId;
         customer[1] = m_jTaxID.getText();//m_jSearchkey.getText();
         customer[2] = m_jTaxID.getText();
-        customer[3] = m_jName.getText();
+        customer[3] = m_jName.getText().trim();
         customer[4] = m_CategoryModel.getSelectedKey();
         customer[5] = Formats.STRING.parseValue(jcard.getText()); // Format to manage NULL values
         customer[6] = Formats.CURRENCY.parseValue(txtMaxdebt.getText(), 0.0);
@@ -547,10 +547,10 @@ public void resetTranxTable() {
         customer[27] = modelIdentificationType.getSelectedKey();
         customer[28] = (Object)getAppView();
         
-        if (m_jName.getText().contains("&")) {
-            JOptionPane.showMessageDialog(null, 
-                AppLocal.getIntString("message.ampersand"));
-        }        
+//        if (m_jName.getText().contains("&")) {
+//            JOptionPane.showMessageDialog(null, 
+//                AppLocal.getIntString("message.ampersand"));
+//        }        
         
         return customer;
     }

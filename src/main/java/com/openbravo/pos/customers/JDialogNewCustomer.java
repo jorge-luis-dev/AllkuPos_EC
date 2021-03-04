@@ -98,7 +98,7 @@ public class JDialogNewCustomer extends javax.swing.JDialog {
         customer[0] =  m_oId;        
         customer[1] = m_jTaxID.getText();//m_jSearchkey.getText();
         customer[2] = m_jTaxID.getText();
-        customer[3] = m_jName.getText();
+        customer[3] = m_jName.getText().trim();
         customer[4] = m_CategoryModel.getSelectedKey();
         customer[5] = null;
         customer[6] = Formats.CURRENCY.parseValue(txtMaxdebt.getText(), 0.0);
