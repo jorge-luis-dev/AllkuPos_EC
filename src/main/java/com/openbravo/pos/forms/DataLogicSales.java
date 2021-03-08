@@ -1617,7 +1617,9 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                             ));
                             break;
                         case TicketInfo.RECEIPT_REFUND:
-                            ticket.setTicketId(getNextTicketRefundIndex());
+                            ticket.setTicketId(getNextTicketRefundIndex(
+                                    ticket.getUser().getId()
+                            ));
                             break;
                         case TicketInfo.RECEIPT_PAYMENT:
                             ticket.setTicketId(getNextTicketPaymentIndex());
@@ -1929,6 +1931,16 @@ public class DataLogicSales extends BeanFactoryDataSingle {
      */
     public final Integer getNextTicketRefundIndex() throws BasicException {
         return (Integer) s.DB.getSequenceSentence(s, "ticketsnum_refund").find();
+    }
+    
+    /**
+     * Get sequence refund by user or people
+     * @param peopleId
+     * @return
+     * @throws BasicException 
+     */
+    public final Integer getNextTicketRefundIndex(String peopleId) throws BasicException {
+        return (Integer) s.DB.getSequenceSentence(s, "ticketsnum_refund", peopleId).find();
     }
 
     /**

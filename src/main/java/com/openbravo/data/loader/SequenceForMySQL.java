@@ -49,7 +49,7 @@ public class SequenceForMySQL extends BaseSentence {
         
         sent1 = new StaticSentence(s, "UPDATE " + sSeqTable + 
                 " SET ID = LAST_INSERT_ID(ID + 1)" + 
-                " where peopleId = '" + peopleId + "'");
+                " where peopleid = '" + peopleId + "'");
         sent2 = new StaticSentence(s, "SELECT LAST_INSERT_ID()", null, SerializerReadInteger.INSTANCE);
     }
     
