@@ -94,4 +94,9 @@ public class SessionDBGeneric implements SessionDB {
     public SentenceFind resetSequenceSentence(Session s, String sequence){
         return new StaticSentence(s, "ALTER SEQUENCE " + sequence + " RESTART WITH 0", null, SerializerReadInteger.INSTANCE);   
 }    
+
+    @Override
+    public SentenceFind getSequenceSentence(Session s, String sequence, String peopleId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

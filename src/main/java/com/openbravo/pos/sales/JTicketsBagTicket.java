@@ -1,21 +1,21 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Allku Pos  - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
-//    https://unicenta.com
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of Allku Pos
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    Allku Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    Allku Pos is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+//    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 package com.openbravo.pos.sales;
 
@@ -195,7 +195,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         return this;
     }
       
-    private void readTicket(int iTicketid, int iTickettype) {
+    private void readTicket(int iTicketid, int iTickettype, String people) {
         Integer findTicket=0;    
         try {
             findTicket = m_jTicketEditor.getValueInteger();
@@ -205,8 +205,8 @@ public class JTicketsBagTicket extends JTicketsBag {
         try {
    
             TicketInfo ticket = (iTicketid==-1) 
-                ? m_dlSales.loadTicket(iTickettype,  findTicket)
-                : m_dlSales.loadTicket(iTickettype, iTicketid) ;
+                ? m_dlSales.loadTicket(iTickettype,  findTicket, people)
+                : m_dlSales.loadTicket(iTickettype, iTicketid, people) ;
 
             if (ticket == null) {
                 JFrame frame = new JFrame();
@@ -565,13 +565,15 @@ public class JTicketsBagTicket extends JTicketsBag {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        readTicket(-1, jrbSales.isSelected() ? 0 : 1);
+        readTicket(-1, jrbSales.isSelected() ? 0 : 1,
+                m_App.getAppUserView().getUser().getName());
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void m_jKeysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jKeysActionPerformed
 
-        readTicket(-1, jrbSales.isSelected() ? 0 : 1);
+        readTicket(-1, jrbSales.isSelected() ? 0 : 1,
+                m_App.getAppUserView().getUser().getName());
         
     }//GEN-LAST:event_m_jKeysActionPerformed
 
@@ -584,7 +586,9 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             m_jTicketEditor.reset();
             m_jTicketEditor.activate();
         } else {
-            readTicket(selectedTicket.getTicketId(), selectedTicket.getTicketType());
+            readTicket(selectedTicket.getTicketId(), 
+                    selectedTicket.getTicketType(),
+                    selectedTicket.getName());
         }
 }//GEN-LAST:event_jButton2ActionPerformed
     

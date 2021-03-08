@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 import java.io.File;
+import org.apache.commons.lang.StringUtils;
 
 /**
  *
@@ -1072,7 +1073,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
         StaticSentence staticSentence = new StaticSentence(s
                 , new QBFBuilder(
-                "SELECT "
+                        "SELECT "
                         + "T.TICKETID, "
                         + "T.TICKETTYPE, "
                         + "R.DATENEW, "
@@ -1080,16 +1081,16 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                         + "C.NAME, "
                         + "SUM(PM.TOTAL), "
                         + "T.STATUS, "
-                        + "PM.notes "
+                        + "T.NUMBER "
                         + "FROM receipts R "
                         + "JOIN tickets T ON R.ID = T.ID LEFT OUTER JOIN payments PM "
                         + "ON R.ID = PM.RECEIPT LEFT OUTER JOIN customers C "
                         + "ON C.ID = T.CUSTOMER LEFT OUTER JOIN people P ON T.PERSON = P.ID "
                         + "WHERE ?(QBF_FILTER) "
-                        + "GROUP BY T.ID, T.TICKETID, T.TICKETTYPE, R.DATENEW, P.NAME, C.NAME, PM.notes "
+                        + "GROUP BY T.ID, T.TICKETID, T.TICKETTYPE, R.DATENEW, P.NAME, C.NAME, PM.notes, T.NUMBER "
                         + "ORDER BY R.DATENEW DESC, T.TICKETID",
                 new String[]{
-                        "T.TICKETID", "T.TICKETTYPE", "PM.TOTAL", "R.DATENEW", "R.DATENEW", "P.NAME", "C.NAME", "PM.NOTES"})
+                        "T.TICKETID", "T.TICKETTYPE", "PM.TOTAL", "R.DATENEW", "R.DATENEW", "P.NAME", "C.NAME", "T.NUMBER"})
                 , new SerializerWriteBasic(new Datas[]{
                 Datas.OBJECT, Datas.INT,
                 Datas.OBJECT, Datas.INT,
@@ -1540,7 +1541,9 @@ public class DataLogicSales extends BeanFactoryDataSingle {
      * @return
      * @throws BasicException
      */
-    public final TicketInfo loadTicket(final int tickettype, final int ticketid) throws BasicException {
+    public final TicketInfo loadTicket(final int tickettype, 
+            final int ticketid,
+            final String people) throws BasicException {
         TicketInfo ticket = (TicketInfo) new PreparedSentence(s
                 , "SELECT "
                 + "T.ID, "
@@ -1556,7 +1559,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 + "FROM receipts R "
                 + "JOIN tickets T ON R.ID = T.ID "
                 + "LEFT OUTER JOIN people P ON T.PERSON = P.ID "
-                + "WHERE T.TICKETTYPE = ? AND T.TICKETID = ? "
+                + "WHERE T.TICKETTYPE = ? AND T.TICKETID = ? AND P.NAME = ? "
                 + "ORDER BY R.DATENEW DESC"
                 , SerializerWriteParams.INSTANCE
                 , new SerializerReadClass(TicketInfo.class))
@@ -1565,6 +1568,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                     public void writeValues() throws BasicException {
                         setInt(1, tickettype);
                         setInt(2, ticketid);
+                        setString(3, people);
                     }});
 
         if (ticket != null) {
@@ -1608,7 +1612,9 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 if (ticket.getTicketId() == 0) {
                     switch (ticket.getTicketType()) {
                         case TicketInfo.RECEIPT_NORMAL:
-                            ticket.setTicketId(getNextTicketIndex());
+                            ticket.setTicketId(getNextTicketIndex(
+                                    ticket.getUser().getId()
+                            ));
                             break;
                         case TicketInfo.RECEIPT_REFUND:
                             ticket.setTicketId(getNextTicketRefundIndex());
@@ -1648,8 +1654,8 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
                 // new ticket
                 new PreparedSentence(s
-                        , "INSERT INTO tickets (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, STATUS) "
-                        + "VALUES (?, ?, ?, ?, ?, ?)"
+                        , "INSERT INTO tickets (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, STATUS, NUMBER) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?)"
                         , SerializerWriteParams.INSTANCE )
                         .exec(new DataParams() {
 
@@ -1661,6 +1667,13 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                                 setString(4, ticket.getUser().getId());
                                 setString(5, ticket.getCustomerId());
                                 setInt(6, ticket.getTicketStatus());
+                                // format 001001000000001 -> (001-001-000000001)
+                                setString(7, ticket.getUser().getId()
+                                        .concat(StringUtils.leftPad(
+                                                Integer.toString(
+                                                        ticket.getTicketId()
+                                                ), 9, '0'
+                                        )));
                             }
                         });
 
@@ -1891,12 +1904,22 @@ public class DataLogicSales extends BeanFactoryDataSingle {
     }
 
     /**
-     *
+     * Get sequence
      * @return
      * @throws BasicException
      */
     public final Integer getNextTicketIndex() throws BasicException {
         return (Integer) s.DB.getSequenceSentence(s, "ticketsnum").find();
+    }
+    
+    /**
+     * Get sequence by user or people
+     * @param peopleId
+     * @return
+     * @throws BasicException 
+     */
+    public final Integer getNextTicketIndex(String peopleId) throws BasicException {
+        return (Integer) s.DB.getSequenceSentence(s, "ticketsnum", peopleId).find();
     }
 
     /**

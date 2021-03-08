@@ -631,6 +631,7 @@ CREATE TABLE `tickets` (
 	`person` varchar(255) NOT NULL,
 	`customer` varchar(255) default NULL,
 	`status` int(11) NOT NULL default '0',
+        `number` varchar(90) not null,
 	PRIMARY KEY  ( `id` ),
 	KEY `tickets_customers_fk` ( `customer` ),
 	KEY `tickets_fk_2` ( `person` ),
@@ -639,7 +640,9 @@ CREATE TABLE `tickets` (
 
 /* Header line. Object: ticketsnum. Script date: 23/01/2018 08:00:00 */
 CREATE TABLE `ticketsnum` (
-	`id` int(11) NOT NULL
+	`id` int(11) NOT NULL,
+        `peopleId` varchar(255) not null,
+        KEY `ticketsnum_people_fk` ( `peopleId` )
 );
 
 /* Header line. Object: ticketsnum_payment. Script date: 23/01/2018 08:00:00 */
@@ -832,6 +835,9 @@ ALTER TABLE `tickets` ADD CONSTRAINT `tickets_fk_2`
 ALTER TABLE `tickets` ADD CONSTRAINT `tickets_fk_id`
 	FOREIGN KEY ( `id` ) REFERENCES `receipts` ( `id` );
 
+alter table `ticketsnum` add constraint `ticketsnum_people_fk`
+    foreign key ( `peopleId` ) references `people` ( `id` );
+
 -- *****************************************************************************
 
 -- ADD roles
@@ -841,9 +847,9 @@ INSERT INTO roles(id, name, permissions) VALUES('2', 'Employee role', $FILE{/com
 INSERT INTO roles(id, name, permissions) VALUES('3', 'Guest role', $FILE{/com/openbravo/pos/templates/Role.Guest.xml} );
 
 -- ADD people
-INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('0', 'Administrator', NULL, '0', TRUE, NULL);
-INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('1', 'Manager', NULL, '1', TRUE, NULL);
-INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('2', 'Employee', NULL, '2', TRUE, NULL);
+INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('001001', 'Administrator', NULL, '0', TRUE, NULL);
+INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('001002', 'Manager', NULL, '1', TRUE, NULL);
+INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('001003', 'Employee', NULL, '2', TRUE, NULL);
 INSERT INTO people(id, name, apppassword, role, visible, image) VALUES ('3', 'Guest', NULL, '3', TRUE, NULL);
 
 -- ADD resources --
@@ -1008,7 +1014,9 @@ INSERT INTO shift_breaks(id, shiftid, breakid, starttime, endtime) VALUES ('0', 
 
 -- ADD SEQUENCES
 INSERT INTO pickup_number VALUES(1);
-INSERT INTO ticketsnum VALUES(0);
+INSERT INTO ticketsnum VALUES(0, '001001');
+INSERT INTO ticketsnum VALUES(0, '001002');
+INSERT INTO ticketsnum VALUES(0, '001003');
 INSERT INTO ticketsnum_refund VALUES(0);
 INSERT INTO ticketsnum_payment VALUES(1);
 
