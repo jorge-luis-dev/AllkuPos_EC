@@ -673,7 +673,7 @@ public class JTicketsFinder extends javax.swing.JDialog implements EditorCreator
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.LINE_END);
 
-        setSize(new java.awt.Dimension(758, 634));
+        setSize(new java.awt.Dimension(900, 640));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
