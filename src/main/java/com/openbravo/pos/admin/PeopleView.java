@@ -261,7 +261,7 @@ public class PeopleView extends JPanel implements EditorRecord {
         setPreferredSize(new java.awt.Dimension(500, 500));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel7.setText(AppLocal.getIntString("label.Password")); // NOI18N
+        jLabel7.setText(AppLocal.getIntString("label.code")); // NOI18N
         jLabel7.setPreferredSize(new java.awt.Dimension(110, 30));
 
         m_jId.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
