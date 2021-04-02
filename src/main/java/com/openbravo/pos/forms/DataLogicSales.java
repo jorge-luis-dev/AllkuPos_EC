@@ -24,6 +24,7 @@ import com.openbravo.data.loader.*;
 import com.openbravo.data.model.Field;
 import com.openbravo.data.model.Row;
 import com.openbravo.format.Formats;
+import com.openbravo.pos.admin.PeopleNotSequence;
 import com.openbravo.pos.catalog.CategoryStock;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.customers.CustomerTransaction;
@@ -1298,6 +1299,38 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 SerializerWriteString.INSTANCE,
                 CustomerTransaction.getSerializerRead()).list(cId);
     }
+    
+    /**
+     * User not sequences asigned in table ticketsnum or ticketsnum_refund
+     * @param id
+     * @param table
+     * @return
+     * List users without sequence
+     * @throws BasicException
+     */
+    @SuppressWarnings("unchecked")
+    public final List<PeopleNotSequence> getUserWithOutSequenceList(String cId,
+            String table) throws BasicException {
+
+        return new PreparedSentence(s,
+                "SELECT "
+                + "p.id, "
+                + "p.name, "
+                + "1 as CID "
+                + "from "
+                + "people p "
+                + "where "
+                + "p.id not in ( "
+                + "SELECT "
+                + "t.peopleid "
+                + "from "
+                + table + " t) "
+                + "and p.visible = ? "
+                + "LIMIT 99",
+                SerializerWriteString.INSTANCE,
+                PeopleNotSequence.getSerializerRead()).list(cId);
+    }
+
 
     /**
      *
@@ -2512,6 +2545,22 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 , new Datas[] {Datas.STRING, Datas.STRING, Datas.STRING}
                 , new Formats[] {Formats.STRING, Formats.STRING, Formats.STRING}
                 , new int[] {0}
+        );
+    }
+    
+    /**
+     * Sequence table refund
+     *
+     * @return
+     */
+    public final TableDefinition getTableTicketsNumRefund() {
+        return new TableDefinition(s,
+                "ticketsnum_refund",
+                new String[]{"ID", "PEOPLEID"},
+                new String[]{"ID", "PEOPLEID"},
+                new Datas[]{Datas.INT, Datas.STRING},
+                new Formats[]{Formats.INT, Formats.STRING},
+                new int[]{1}
         );
     }
 
