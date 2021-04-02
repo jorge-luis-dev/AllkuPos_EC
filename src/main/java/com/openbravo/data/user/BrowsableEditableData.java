@@ -410,12 +410,17 @@ public class BrowsableEditableData {
     public void saveData() throws BasicException {
         //Get the customer being referenced for firing action events
         boolean isCustomerChangeEvent = false;
+        boolean isSupplierChangeEvent = false;
         Object[] customer = new Object[29];
         Validate validate = new Validate();
         
         if (m_editorrecord.getClass().getName().equals("com.openbravo.pos.customers.CustomersView")) {
             isCustomerChangeEvent = true;
             customer = (Object[]) m_editorrecord.createValue();
+        }
+        
+        if (m_editorrecord.getClass().getName().equals("com.openbravo.pos.suppliers.SuppliersView")) {
+            isSupplierChangeEvent = true;
         }
 
         if (m_Dirty.isDirty()) {
@@ -459,8 +464,8 @@ public class BrowsableEditableData {
                             appView.getAppUserView().showTask("com.openbravo.pos.sales.JPanelTicketSales");
                         }
                     }
-
-                } else {
+                } 
+                else if (isSupplierChangeEvent) {
                     Object[] supplier = (Object[]) m_editorrecord.createValue();
                     if (validate.blank(supplier[0].toString(), supplier[3].toString()) && 
                             validate.identification(supplier[22].toString(), 
@@ -469,6 +474,11 @@ public class BrowsableEditableData {
                         m_editorrecord.refresh();
                         baseMoveTo(i);
                     }
+                } 
+                else {
+                    int i = m_bd.insertRecord(m_editorrecord.createValue());
+                    m_editorrecord.refresh();
+                    baseMoveTo(i);
                 }
 
             } else if (m_iState == ST_DELETE) {
