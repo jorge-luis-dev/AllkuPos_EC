@@ -475,7 +475,8 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
     
     myprod[3] = m_jCodetype.getSelectedItem();
     myprod[4] = m_jName.getText();
-    myprod[5] = Formats.CURRENCY.parseValue(m_jPriceBuy.getText());
+    //Added by Jorge Luis to replace comma from dot
+    myprod[5] = Formats.CURRENCY.parseValue(m_jPriceBuy.getText().replace(".", ","));
     myprod[6] = pricesell;
     myprod[7] = m_CategoryModel.getSelectedKey();
     myprod[8] = taxcatmodel.getSelectedKey();
@@ -918,8 +919,8 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 
     if (!reportlock) {
       reportlock = true;
-
-      Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
+      //Added by Jorge Luis to replace comma from dot
+      Double dPriceBuy = readCurrency(m_jPriceBuy.getText().replace(".", ","));
       Double dPriceSell = (Double) pricesell;
 
       if (dPriceBuy == null || dPriceSell == null) {
@@ -952,8 +953,8 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 
     if (!reportlock) {
       reportlock = true;
-
-      Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
+      //Added by Jorge Luis to replace comma from dot
+      Double dPriceBuy = readCurrency(m_jPriceBuy.getText().replace(".", ","));      
       Double dPriceSell = (Double) pricesell;
 
       if (dPriceBuy == null || dPriceSell == null) {
@@ -972,8 +973,8 @@ public final class ProductsEditor extends javax.swing.JPanel implements EditorRe
 
     if (!reportlock) {
       reportlock = true;
-
-      Double dPriceBuy = readCurrency(m_jPriceBuy.getText());
+      //Added by Jorge Luis to replace comma from dot
+      Double dPriceBuy = readCurrency(m_jPriceBuy.getText().replace(".", ","));
       Double dMargin = readPercent(m_jmargin.getText());
 
       if (dMargin == null || dPriceBuy == null) {
