@@ -32,6 +32,7 @@ import com.openbravo.data.gui.ComboBoxValModel;
 import com.openbravo.data.gui.ListKeyed;
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.data.loader.SentenceList;
+import com.openbravo.editor.JEditorString;
 import com.openbravo.pos.catalog.JCatalog;
 import com.openbravo.pos.customers.*;
 import com.openbravo.pos.forms.*;
@@ -1033,9 +1034,52 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
       Toolkit.getDefaultToolkit().beep();
     }
   }
+  
+    /*
+        Added by Jorge Luis
+        Función para recuperar el cliente seleccionado en el JPaymentSelect. 
+     */
+    private boolean getCliente(String documento) {
+
+        System.out.println("Documento: " + documento);
+
+        CustomerInfo c = new CustomerInfo(documento);
+
+        JCustomerFinder finder = JCustomerFinder.getCustomerFinder(this, dlCustomers);
+        c.setSearchkey(documento);
+
+        com.openbravo.editor.JEditorString m_jtxtTax = new JEditorString();
+        m_jtxtTax.setText(documento);
+
+        finder.setM_jtxtTaxID(m_jtxtTax);
+
+        finder.executeSearchDirecto();
+        c = finder.getSelectedCustomer();
+        if (c == null) {
+            return false;
+        }
+        try {
+            m_oTicket.setCustomer(finder.getSelectedCustomer() == null
+                    ? null
+                    : dlSales.loadCustomerExt(finder.getSelectedCustomer().getId()));
+        } catch (BasicException e) {
+            MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindcustomer"), e);
+            msg.show(this);
+        }
+
+        return true;
+    }
 
   @SuppressWarnings("empty-statement")
   private void stateTransition(char cTrans) {
+    //Added by Jorge Luis, if Customer is null then search Consumidor Final
+    if (m_oTicket.getCustomer() == null) {
+        //Added to cliente default is Consumidor Final
+        if (getCliente("9999999999999") == false) {
+            JOptionPane.showMessageDialog(this, "El  Consumidor Final, no existe. Crear Consumidor Final en clientes por favor", "Error: Cliente no existe", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }
 
     if ((cTrans == '\n') || (cTrans == '?')) {
 
