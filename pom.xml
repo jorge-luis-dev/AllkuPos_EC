@@ -519,12 +519,11 @@
       <url>https://mvnrepository.com/artifact/</url>
       <layout>default</layout>
     </repository>
-    <!--These are needed for Swing/Netbeans -->
+    <!--These are needed for Swing/Netbeans -->    
     <repository>
-      <id>maven2-repository.netbeans.maven2</id>
-      <name>Netbeans Maven Repository</name>
-      <url>http://bits.netbeans.org/maven2/</url>
-      <layout>default</layout>
+            <id>netbeans</id>
+            <name>NetBeans</name>
+            <url>http://netbeans.apidesign.org/maven2/</url>
     </repository>
     <repository>
       <id>oracleReleases</id>
