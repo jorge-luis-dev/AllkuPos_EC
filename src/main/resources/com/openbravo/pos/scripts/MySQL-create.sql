@@ -682,6 +682,21 @@ CREATE TABLE `identificationtype` (
   `status` VARCHAR(18) NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`code`));
 
+CREATE TABLE `taxpayer` (
+  `id` int(11) NOT NULL,
+  `identification` VARCHAR(50) NOT NULL,
+  `legal_name` VARCHAR(400) NOT NULL,
+  `comercial_name` VARCHAR(400) NULL,
+  `forced_accounting` VARCHAR(4) NOT NULL,
+  `special_contributor` VARCHAR(40),
+  `micro_business` VARCHAR(400),
+  `retention_agent` VARCHAR(40),
+  `address` VARCHAR(400) NOT NULL,
+  `phone` VARCHAR(40) default NULL,
+  `email` VARCHAR(220) default NULL,
+  PRIMARY KEY (`id`));
+
+
 -- Update foreign keys of attributeinstance
 ALTER TABLE `attributeinstance` ADD CONSTRAINT `attinst_att`
 	FOREIGN KEY ( `attribute_id` ) REFERENCES `attribute` ( `id` );
@@ -1026,10 +1041,20 @@ INSERT INTO ticketsnum_refund VALUES(0, '001902');
 INSERT INTO ticketsnum_refund VALUES(0, '001903');
 INSERT INTO ticketsnum_payment VALUES(1);
 
+-- ADD IDENTIFICATIONS TYPE
 INSERT INTO identificationtype(code, name) VALUES ('C', 'Cédula');
 INSERT INTO identificationtype(code, name) VALUES ('R', 'RUC');
 INSERT INTO identificationtype(code, name) VALUES ('P', 'Pasaporte');
 INSERT INTO identificationtype(code, name) VALUES ('CF', 'Consumidor Final');
+
+-- ADD taxpayer
+INSERT INTO taxpayer (id, identification, legal_name, comercial_name,
+forced_accounting, special_contributor, micro_business, retention_agent,
+address, phone, email)
+VALUES
+(1, '9999999999999', 'Razón social', 'Nombre comercial',
+'NO', null, 'CONTRIBUYENTE RÉGIMEN MICROEMPRESAS', null,
+'Ecuador', '4444444', 'mi@mi.com');
 
 -- ADD APPLICATION VERSION
 INSERT INTO applications(id, name, version) VALUES($APP_ID{}, $APP_NAME{}, $APP_VERSION{});
