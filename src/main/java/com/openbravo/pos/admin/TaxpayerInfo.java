@@ -1,26 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//    Allku Pos  - Touch Friendly Point Of Sale
+//    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
+//    https://www.allku.expert
+//
+//    This file is part of Allku Pos
+//
+//    Allku Pos is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    Allku Pos is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//    You should have received a copy of the GNU General Public License
+//    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
+
 package com.openbravo.pos.admin;
 
 /**
  *
- * @author jorgeluis
+ * @author Jorge Luis
  */
 public class TaxpayerInfo {
-    
+
     private String identification;
-    private String legalName; 
+    private String legalName;
     private String comercialName;
     private String forcedAccounting;
     private String specialContributor;
     private String microBusiness;
-    private String legalretentionAgent;
+    private String retentionAgent;
     private String address;
     private String phone;
     private String eMail;
+
+    public TaxpayerInfo(String identification, String legalName, String comercialName, String forcedAccounting, String specialContributor, String microBusiness, String retentionAgent, String address, String phone, String eMail) {
+        this.identification = identification;
+        this.legalName = legalName;
+        this.comercialName = comercialName;
+        this.forcedAccounting = forcedAccounting;
+        this.specialContributor = specialContributor;
+        this.microBusiness = microBusiness;
+        this.retentionAgent = retentionAgent;
+        this.address = address;
+        this.phone = phone;
+        this.eMail = eMail;
+    }
 
     public String getIdentification() {
         return identification;
@@ -58,7 +85,7 @@ public class TaxpayerInfo {
         return specialContributor;
     }
 
-    public void setSpecialContributor(String specialContributor) {        
+    public void setSpecialContributor(String specialContributor) {
         this.specialContributor = specialContributor;
     }
 
@@ -70,12 +97,12 @@ public class TaxpayerInfo {
         this.microBusiness = microBusiness;
     }
 
-    public String getLegalretentionAgent() {
-        return legalretentionAgent;
+    public String getRetentionAgent() {
+        return retentionAgent;
     }
 
-    public void setLegalretentionAgent(String legalretentionAgent) {
-        this.legalretentionAgent = legalretentionAgent;
+    public void setRetentionAgent(String retentionAgent) {
+        this.retentionAgent = retentionAgent;
     }
 
     public String getAddress() {
@@ -100,5 +127,5 @@ public class TaxpayerInfo {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
-    }        
+    }
 }

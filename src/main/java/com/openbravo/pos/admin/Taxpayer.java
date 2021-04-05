@@ -16,6 +16,7 @@
 //
 //    You should have received a copy of the GNU General Public License
 //    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
+
 package com.openbravo.pos.admin;
 
 import com.openbravo.basic.BasicException;
@@ -143,7 +144,7 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                 ckForced.setSelected(false);
             }
 
-            if (micro.equals("CONTRIBUYENTE RÉGIMEN MICROEMPRESAS")) {
+            if (micro != null && micro.equals("CONTRIBUYENTE RÉGIMEN MICROEMPRESAS")) {
                 ckMicro.setText("SI");
                 ckMicro.setSelected(true);
             } else {
@@ -155,7 +156,7 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
             stmt.close();
             con.close();
         } catch (SQLException e) {
-            System.out.println("Error al recuperar la información de la tabla company");
+            System.out.println("Error " + e.getMessage() + " al recuperar company");
         }
     }
 
@@ -427,6 +428,19 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
 
     private void cmdApplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdApplyActionPerformed
         int count = 0;
+        String sqlTransaction = "";
+        TaxpayerInfo tp = new TaxpayerInfo(txtIdentification.getText(),
+                txtLegalName.getText(),
+                txtComercialName.getText(),
+                ckForced.getText(),
+                txtSpecial.getText(),
+                ckMicro.getText() == "SI"
+                ? "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS" : null,
+                txtAgent.getText(),
+                txtAddress.getText(),
+                txtPhone.getText(),
+                txtMail.getText());
+
         try {
             // Get session database
             s = m_App.getSession();
@@ -445,9 +459,32 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
             }
 
             if (count == 0) {
-
+                sqlTransaction = "insert "
+                        + "into "
+                        + "taxpayer (id, "
+                        + "identification, "
+                        + "legal_name, "
+                        + "comercial_name, "
+                        + "forced_accounting, "
+                        + "special_contributor, "
+                        + "micro_business, "
+                        + "retention_agent, "
+                        + "address, "
+                        + "phone, "
+                        + "email) "
+                        + "values(1, "
+                        + "?, "
+                        + "?, "
+                        + "?, "
+                        + "?, "
+                        + "?, "
+                        + "?, "
+                        + "?, "
+                        + "?, "
+                        + "?, "
+                        + "?)";
             } else {
-                String sqlUpdate = "UPDATE taxpayer "
+                sqlTransaction = "UPDATE taxpayer "
                         + "SET identification = ?, "
                         + "legal_name = ?, "
                         + "comercial_name = ?, "
@@ -459,28 +496,23 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                         + "phone = ?, "
                         + "email = ? "
                         + "WHERE id = 1";
-                
-                ps = con.prepareStatement(sqlUpdate);
-                ps.setString(1, txtIdentification.getText());
-                ps.setString(2, txtLegalName.getText());
-                ps.setString(3, txtComercialName.getText());
-                ps.setString(4, ckForced.getText());
-                ps.setString(5, txtSpecial.getText());
-                if (ckMicro.getText() == "SI") {
-                    ps.setString(6, "CONTRIBUYENTE RÉGIMEN MICROEMPRESAS");
-                }
-                else {
-                    ps.setString(6, null);
-                }                
-                ps.setString(7, txtAgent.getText());
-                ps.setString(8, txtAddress.getText());
-                ps.setString(9, txtPhone.getText());
-                ps.setString(10, txtMail.getText());
-
-                // call executeUpdate to execute our sql update statement
-                ps.executeUpdate();
-                ps.close();
             }
+
+            ps = con.prepareStatement(sqlTransaction);
+            ps.setString(1, tp.getIdentification());
+            ps.setString(2, tp.getLegalName());
+            ps.setString(3, tp.getComercialName());
+            ps.setString(4, tp.getForcedAccounting());
+            ps.setString(5, tp.getSpecialContributor());
+            ps.setString(6, tp.getMicroBusiness());
+            ps.setString(7, tp.getRetentionAgent());
+            ps.setString(8, tp.getAddress());
+            ps.setString(9, tp.getPhone());
+            ps.setString(10, tp.geteMail());
+
+            // call executeUpdate to execute our sql update statement
+            ps.executeUpdate();
+            ps.close();
 
             rs.close();
             stmt.close();
