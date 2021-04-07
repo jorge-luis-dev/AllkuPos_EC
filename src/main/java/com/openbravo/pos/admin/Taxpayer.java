@@ -109,55 +109,37 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
         String forced = "";
         String micro = "";
         // read company data
-        try {
-            // Get session database
-            s = m_App.getSession();
-            con = s.getConnection();
+        
+        DataLogicAdmin dlTaxpayer = (DataLogicAdmin) m_App.getBean("com.openbravo.pos.admin.DataLogicAdmin");
 
-            // Ever id = 1
-            SQL = "SELECT identification, legal_name, comercial_name, "
-                    + "forced_accounting, special_contributor, micro_business, retention_agent, "
-                    + "address, phone, email "
-                    + "FROM taxpayer "
-                    + "where id = 1";
+        TaxpayerInfo tp = dlTaxpayer.getTaxpayerInfo();            
 
-            stmt = (Statement) con.createStatement();
-            rs = stmt.executeQuery(SQL);
-            while (rs.next()) {
-                txtIdentification.setText(rs.getString("identification"));
-                txtLegalName.setText(rs.getString("legal_name"));
-                txtComercialName.setText(rs.getString("comercial_name"));
-                forced = rs.getString("forced_accounting");
-                txtSpecial.setText(rs.getString("special_contributor"));
-                micro = rs.getString("micro_business");
-                txtAgent.setText(rs.getString("retention_agent"));
-                txtAddress.setText(rs.getString("address"));
-                txtPhone.setText(rs.getString("phone"));
-                txtMail.setText(rs.getString("email"));
-            }
+        txtIdentification.setText(tp.getIdentification());
+        txtLegalName.setText(tp.getLegalName());
+        txtComercialName.setText(tp.getComercialName());
+        forced = tp.getForcedAccounting();
+        txtSpecial.setText(tp.getSpecialContributor());
+        micro = tp.getMicroBusiness();
+        txtAgent.setText(tp.getRetentionAgent());
+        txtAddress.setText(tp.getAddress());
+        txtPhone.setText(tp.getPhone());
+        txtMail.setText(tp.geteMail());
 
-            if (forced.equals("SI")) {
-                ckForced.setText("SI");
-                ckForced.setSelected(true);
-            } else {
-                ckForced.setText("NO");
-                ckForced.setSelected(false);
-            }
-
-            if (micro != null && micro.equals("CONTRIBUYENTE RÉGIMEN MICROEMPRESAS")) {
-                ckMicro.setText("SI");
-                ckMicro.setSelected(true);
-            } else {
-                ckMicro.setText("NO");
-                ckMicro.setSelected(false);
-            }
-
-            rs.close();
-            stmt.close();
-            con.close();
-        } catch (SQLException e) {
-            System.out.println("Error " + e.getMessage() + " al recuperar company");
+        if (forced.equals("SI")) {
+            ckForced.setText("SI");
+            ckForced.setSelected(true);
+        } else {
+            ckForced.setText("NO");
+            ckForced.setSelected(false);
         }
+
+        if (micro != null && micro.equals("CONTRIBUYENTE RÉGIMEN MICROEMPRESAS")) {
+            ckMicro.setText("SI");
+            ckMicro.setSelected(true);
+        } else {
+            ckMicro.setText("NO");
+            ckMicro.setSelected(false);
+        }                
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
