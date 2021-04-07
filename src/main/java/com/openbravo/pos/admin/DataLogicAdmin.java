@@ -1,24 +1,25 @@
-//    uniCenta oPOS  - Touch Friendly Point Of Sale
+//    Allku Pos  - Touch Friendly Point Of Sale
 //    Copyright (c) 2009-2018 uniCenta & previous Openbravo POS works
-//    https://unicenta.com
+//    https://www.allku.expert
 //
-//    This file is part of uniCenta oPOS
+//    This file is part of Allku Pos
 //
-//    uniCenta oPOS is free software: you can redistribute it and/or modify
+//    Allku Pos is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
 //
-//   uniCenta oPOS is distributed in the hope that it will be useful,
+//    Allku Pos is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //    GNU General Public License for more details.
 //
 //    You should have received a copy of the GNU General Public License
-//    along with uniCenta oPOS.  If not, see <http://www.gnu.org/licenses/>.
+//    along with Allku Pos.  If not, see <http://www.gnu.org/licenses/>.
 
 package com.openbravo.pos.admin;
 
+import com.openbravo.basic.BasicException;
 import com.openbravo.data.loader.*;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.forms.AppLocal;
@@ -26,7 +27,7 @@ import com.openbravo.pos.forms.BeanFactoryDataSingle;
 
 /**
  *
- * @author adrianromero
+ * @author adrianromero, Jorge Luis
  */
 public class DataLogicAdmin extends BeanFactoryDataSingle {
     
@@ -34,6 +35,7 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
     private TableDefinition m_tpeople;
     private TableDefinition m_troles;
     private TableDefinition m_tresources;    
+    private TableDefinition m_ttaxpayer;    
     
     
     /** Creates a new instance of DataLogicAdmin */
@@ -80,7 +82,24 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
             , new Formats[] {
                 Formats.STRING, Formats.STRING, Formats.INT, Formats.NULL}
             , new int[] {0}
-        );           
+        );        
+        
+        m_ttaxpayer = new TableDefinition(s,
+            "roles"
+            , new String[] {"ID", "IDENTIFICATION", "LEGAL_NAME", "COMERCIAL_NAME",
+                "FORCED_ACCOUNTING", "SPECIAL_CONTRIBUTOR", "MICRO_BUSINESS",
+                "RETENTION_AGENT", "ADDRESS", "PHONE", "EMAIL"}
+            , new String[] {"ID", "IDENTIFICATION", "LEGAL_NAME", "COMERCIAL_NAME",
+                "FORCED_ACCOUNTING", "SPECIAL_CONTRIBUTOR", "MICRO_BUSINESS",
+                "RETENTION_AGENT", "ADDRESS", "PHONE", "EMAIL"}
+            , new Datas[] {Datas.INT, Datas.STRING, Datas.STRING, Datas.STRING,
+                Datas.STRING, Datas.STRING, Datas.STRING,
+                Datas.STRING, Datas.STRING, Datas.STRING, Datas.STRING}
+            , new Formats[] {Formats.INT, Formats.STRING, Formats.STRING, Formats.STRING,
+                Formats.STRING, Formats.STRING, Formats.STRING,
+                Formats.STRING, Formats.STRING, Formats.STRING, Formats.STRING}
+            , new int[] {0}
+        );  
     }
        
     /**
@@ -118,6 +137,10 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
         return m_tresources;
     }
     
+    public final TableDefinition getTableTaxpayer() {
+        return m_ttaxpayer;
+    }
+    
     /**
      *
      * @return
@@ -127,5 +150,28 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
                 , "SELECT ID, NAME FROM people ORDER BY NAME"
                 , null
                 , new SerializerReadClass(PeopleInfo.class));
+    }    
+    
+    public final TaxpayerInfo getTaxpayerInfo() throws BasicException {
+        return (TaxpayerInfo) new PreparedSentence(s
+            ,"SELECT IDENTIFICATION, LEGAL_NAME, COMERCIAL_NAME, "
+                        + "FORCED_ACCOUNTING, SPECIAL_CONTRIBUTOR, "
+                        + "MICRO_BUSINESS, RETENTION_AGENT, ADDRESS, PHONE, EMAIL " +
+                  "FROM taxpayer " +
+             "WHERE ID = ?"
+                , SerializerWriteString.INSTANCE , (DataRead dr) -> {
+                    TaxpayerInfo c = new TaxpayerInfo();
+                    c.setIdentification(dr.getString(1));
+                    c.setLegalName(dr.getString(2));
+                    c.setComercialName(dr.getString(3));
+                    c.setForcedAccounting(dr.getString(4));
+                    c.setSpecialContributor(dr.getString(5));
+                    c.setMicroBusiness(dr.getString(6));
+                    c.setRetentionAgent(dr.getString(7));
+                    c.setAddress(dr.getString(8));
+                    c.setPhone(dr.getString(9));
+                    c.seteMail(dr.getString(10));
+            return c;
+        }).find("1");
     }
 }

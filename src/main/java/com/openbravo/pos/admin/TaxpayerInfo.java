@@ -19,11 +19,15 @@
 
 package com.openbravo.pos.admin;
 
+import com.openbravo.basic.BasicException;
+import com.openbravo.data.loader.DataRead;
+import com.openbravo.data.loader.SerializableRead;
+
 /**
  *
  * @author Jorge Luis
  */
-public class TaxpayerInfo {
+public class TaxpayerInfo implements SerializableRead {
 
     private String identification;
     private String legalName;
@@ -35,6 +39,19 @@ public class TaxpayerInfo {
     private String address;
     private String phone;
     private String eMail;
+
+    public TaxpayerInfo() {
+        this.identification = "";
+        this.legalName = "";
+        this.comercialName = "";
+        this.forcedAccounting = "";
+        this.specialContributor = "";
+        this.microBusiness = "";
+        this.retentionAgent = "";
+        this.address = "";
+        this.phone = "";
+        this.eMail = "";
+    }        
 
     public TaxpayerInfo(String identification, String legalName, String comercialName, String forcedAccounting, String specialContributor, String microBusiness, String retentionAgent, String address, String phone, String eMail) {
         this.identification = identification;
@@ -127,5 +144,19 @@ public class TaxpayerInfo {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
+    }
+
+    @Override
+    public void readValues(DataRead dr) throws BasicException {
+        this.identification = dr.getString(1);
+        this.legalName = dr.getString(2);
+        this.comercialName = dr.getString(3);
+        this.forcedAccounting = dr.getString(4);
+        this.specialContributor = dr.getString(5);
+        this.microBusiness = dr.getString(6);
+        this.retentionAgent = dr.getString(7);
+        this.address = dr.getString(8);
+        this.phone = dr.getString(9);
+        this.eMail = dr.getString(10);
     }
 }

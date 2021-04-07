@@ -24,6 +24,7 @@ import com.openbravo.data.loader.DataRead;
 import com.openbravo.data.loader.LocalRes;
 import com.openbravo.data.loader.SerializableRead;
 import com.openbravo.format.Formats;
+import com.openbravo.pos.admin.TaxpayerInfo;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.forms.AppConfig;
 import com.openbravo.pos.forms.AppLocal;
@@ -79,6 +80,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
     private final String m_locked;
     private Double nsum;
     private int ticketstatus;
+    private TaxpayerInfo taxpayer;
 
     private static String Hostname;
 
@@ -113,6 +115,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         m_isProcessed = false;
         m_locked = null;
         ticketstatus = 0;        
+        this.taxpayer = new TaxpayerInfo();
     }
 
     @Override
@@ -770,5 +773,12 @@ public final class TicketInfo implements SerializableRead, Externalizable {
             return "";
         }
     }    
-   
+
+    public TaxpayerInfo getTaxpayer() {
+        return taxpayer;
+    }
+
+    public void setTaxpayer(TaxpayerInfo taxpayer) {
+        this.taxpayer = taxpayer;
+    }       
 }
