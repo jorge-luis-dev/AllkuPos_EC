@@ -30,6 +30,8 @@ import com.openbravo.basic.BasicException;
 import com.openbravo.data.gui.JMessageDialog;
 import com.openbravo.data.gui.ListKeyed;
 import com.openbravo.data.gui.MessageInf;
+import com.openbravo.pos.admin.DataLogicAdmin;
+import com.openbravo.pos.admin.TaxpayerInfo;
 import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppProperties;
 import com.openbravo.pos.forms.AppView;
@@ -216,6 +218,10 @@ public class JTicketsBagTicket extends JTicketsBag {
                     JOptionPane.WARNING_MESSAGE);
                 
             } else {
+                DataLogicAdmin dlTaxpayer = (DataLogicAdmin) m_App.getBean("com.openbravo.pos.admin.DataLogicAdmin");
+
+                TaxpayerInfo tp = dlTaxpayer.getTaxpayerInfo();  
+                ticket.setTaxpayerInfo(tp);
                 m_ticket = ticket;
                 m_ticketCopy = null;
                     if(m_ticket.getTicketStatus()> 0) {

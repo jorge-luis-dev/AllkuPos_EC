@@ -33,6 +33,8 @@ import com.openbravo.data.gui.ListKeyed;
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.data.loader.SentenceList;
 import com.openbravo.editor.JEditorString;
+import com.openbravo.pos.admin.DataLogicAdmin;
+import com.openbravo.pos.admin.TaxpayerInfo;
 import com.openbravo.pos.catalog.JCatalog;
 import com.openbravo.pos.customers.*;
 import com.openbravo.pos.forms.*;
@@ -1874,6 +1876,10 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
             if (executeEvent(ticket, ticketext, "ticket.save") == null) {
 
               try {
+                DataLogicAdmin dlTaxpayer = (DataLogicAdmin) m_App.getBean("com.openbravo.pos.admin.DataLogicAdmin");
+
+                TaxpayerInfo tp = dlTaxpayer.getTaxpayerInfo();  
+                ticket.setTaxpayerInfo(tp);
                 dlSales.saveTicket(ticket, m_App.getInventoryLocation());
                 m_config.setProperty("lastticket.number", Integer.toString(ticket.getTicketId()));
                 m_config.setProperty("lastticket.type", Integer.toString(ticket.getTicketType()));

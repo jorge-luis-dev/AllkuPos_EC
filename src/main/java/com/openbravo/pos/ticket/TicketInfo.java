@@ -80,7 +80,7 @@ public final class TicketInfo implements SerializableRead, Externalizable {
     private final String m_locked;
     private Double nsum;
     private int ticketstatus;
-    private TaxpayerInfo taxpayer;
+    private TaxpayerInfo taxpayerInfo;
 
     private static String Hostname;
 
@@ -114,8 +114,8 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         tip = Boolean.valueOf(config.getProperty("machine.showTip"));
         m_isProcessed = false;
         m_locked = null;
-        ticketstatus = 0;        
-        this.taxpayer = new TaxpayerInfo();
+        ticketstatus = 0;    
+        taxpayerInfo = new TaxpayerInfo();
     }
 
     @Override
@@ -772,13 +772,48 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         } else {
             return "";
         }
-    }    
+    }  
 
-    public TaxpayerInfo getTaxpayer() {
-        return taxpayer;
+    public TaxpayerInfo getTaxpayerInfo() {
+        return taxpayerInfo;
     }
 
-    public void setTaxpayer(TaxpayerInfo taxpayer) {
-        this.taxpayer = taxpayer;
-    }       
+    public void setTaxpayerInfo(TaxpayerInfo taxpayerInfo) {
+        this.taxpayerInfo = taxpayerInfo;
+    }
+    
+    public String printRetentionAgent() {        
+        if(taxpayerInfo.getRetentionAgent() == null 
+                || taxpayerInfo.getRetentionAgent().equals("")) {
+            return "";
+        }
+        return "Agente de Retención Resolución No " 
+                + taxpayerInfo.getRetentionAgent();
+    }
+    
+    public String printForcedAccounting() {
+        if(taxpayerInfo.getForcedAccounting()== null 
+                || taxpayerInfo.getForcedAccounting().equals("")) {
+            return "";
+        }
+        return "Obligado a llevar contabilidad: " 
+                + taxpayerInfo.getForcedAccounting();
+    }
+    
+    public String printSpecialTaxpayer() {
+        if(taxpayerInfo.getSpecialContributor()== null 
+                || taxpayerInfo.getSpecialContributor().equals("")) {
+            return "";
+        }
+        return "Contribuyente Especial No " 
+                + taxpayerInfo.getSpecialContributor();
+    }
+    
+    public String printMicroBusiness() {
+        if(taxpayerInfo.getMicroBusiness()== null 
+                || taxpayerInfo.getMicroBusiness().equals("")) {
+            return "";
+        }
+        return "Contribuyente régimen microempresas";
+    }
 }
