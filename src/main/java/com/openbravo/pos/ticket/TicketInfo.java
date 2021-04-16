@@ -816,4 +816,21 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         }
         return "Contribuyente régimen microempresas";
     }
+    
+    public String printSecuencial() {
+        if (m_iTicketId > 0) {
+            String serial = getUser().getId();
+            if (serial.length() == 6) {               
+                return serial.substring(0, 3)
+                    + "-"
+                    + serial.substring(3, 6)
+                    + "-"
+                    + String.format("%09d", m_iTicketId);
+            }
+            return getUser().getId()
+                    + String.format("%09d", m_iTicketId);
+        } else {
+            return "";
+        }
+    }
 }
