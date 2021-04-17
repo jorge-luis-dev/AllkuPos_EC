@@ -954,6 +954,8 @@ INSERT INTO resources(id, name, restype, content) VALUES('71', 'script.Linedisco
 INSERT INTO resources(id, name, restype, content) VALUES('72', 'script.posapps', 0, $FILE{/com/openbravo/pos/templates/script.posapps.txt});
 INSERT INTO resources(id, name, restype, content) VALUES('73', 'script.SendOrder', 0, $FILE{/com/openbravo/pos/templates/script.SendOrder.txt});
 INSERT INTO resources(id, name, restype, content) VALUES('74', 'script.Totaldiscount', 0, $FILE{/com/openbravo/pos/templates/script.Totaldiscount.txt});
+-- ADD Ambiente de facturación electrónica: Pruebas -> 1; Producción -> 2
+INSERT INTO resources(id, name, restype, content) VALUES('75', 'Empresa.Ambiente', 0, $FILE{/com/openbravo/pos/templates/Empresa.Ambiente.txt});
 
 -- ADD CATEGORIES
 INSERT INTO categories(id, name) VALUES ('000', 'Categoría Standard');

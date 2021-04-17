@@ -78,6 +78,18 @@
         <line>
             <text align="center" length="40">${ticket.getTaxpayerInfo().geteMail()}</text>
         </line>
+        <line>
+            <text align="center" length="40">Clave de acceso:</text>
+        </line>
+        <line>
+            <text>${ticket.printClaveAcceso()}</text>
+        </line>
+        <line>
+            <text align="center" length="40">      --------------------------      </text>
+        </line>
+        <line>
+            <text align="center" length="40">${ticket.printAmbiente()}</text>
+        </line>
 
         <line><text align="center" length="40">Printer.Ticket</text></line>
         <line></line>

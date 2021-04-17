@@ -222,6 +222,8 @@ public class JTicketsBagTicket extends JTicketsBag {
 
                 TaxpayerInfo tp = dlTaxpayer.getTaxpayerInfo();  
                 ticket.setTaxpayerInfo(tp);
+                ticket.setAmbiente(m_dlSystem.getResourceAsText("Empresa.Ambiente"));
+                
                 m_ticket = ticket;
                 m_ticketCopy = null;
                     if(m_ticket.getTicketStatus()> 0) {

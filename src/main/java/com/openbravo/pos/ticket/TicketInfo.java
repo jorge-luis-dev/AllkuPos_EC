@@ -32,6 +32,7 @@ import com.openbravo.pos.payment.PaymentInfo;
 import com.openbravo.pos.payment.PaymentInfoMagcard;
 import com.openbravo.pos.payment.PaymentInfoTicket;
 import com.openbravo.pos.util.StringUtils;
+import expert.allku.util.Modulo11;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -81,6 +82,8 @@ public final class TicketInfo implements SerializableRead, Externalizable {
     private Double nsum;
     private int ticketstatus;
     private TaxpayerInfo taxpayerInfo;
+    // Ambiente de facturación electrónica
+    private String ambiente; // Pruebas -> 1; Producción ->2
 
     private static String Hostname;
 
@@ -781,6 +784,14 @@ public final class TicketInfo implements SerializableRead, Externalizable {
     public void setTaxpayerInfo(TaxpayerInfo taxpayerInfo) {
         this.taxpayerInfo = taxpayerInfo;
     }
+
+    public String getAmbiente() {
+        return ambiente;
+    }
+
+    public void setAmbiente(String ambiente) {
+        this.ambiente = ambiente;
+    }    
     
     public String printRetentionAgent() {        
         if(taxpayerInfo.getRetentionAgent() == null 
@@ -817,6 +828,10 @@ public final class TicketInfo implements SerializableRead, Externalizable {
         return "Contribuyente régimen microempresas";
     }
     
+    public String getSecuencial() {
+        return String.format("%09d", m_iTicketId);
+    }
+    
     public String printSecuencial() {
         if (m_iTicketId > 0) {
             String serial = getUser().getId();
@@ -825,11 +840,50 @@ public final class TicketInfo implements SerializableRead, Externalizable {
                     + "-"
                     + serial.substring(3, 6)
                     + "-"
-                    + String.format("%09d", m_iTicketId);
+                    + getSecuencial();
             }
             return getUser().getId()
-                    + String.format("%09d", m_iTicketId);
+                    + getSecuencial();
         } else {
+            return "";
+        }
+    }
+    
+    public String printAmbiente() {
+        if (getAmbiente().equals("1")) {
+            return "Ambiente: Pruebas";
+        } else if (getAmbiente().equals("2")) {
+            return "Ambiente: Producción";
+        }
+        return "";
+    }
+    
+    public String printClaveAcceso() {
+        String codeDocument = "";
+        String serial = "";
+        String claveAcceso = "";
+        Modulo11 m11 = new Modulo11();
+        try {        
+            if (getTicketType() == 0) {
+                codeDocument = "01"; // Factura
+            } else if (getTicketType() == 1) {
+                codeDocument = "04"; // Nota de crédito
+            }
+
+            serial =getUser().getId();
+
+            claveAcceso = new SimpleDateFormat("ddMMyyyy").format(getDate());
+            claveAcceso = claveAcceso + codeDocument;
+            claveAcceso = claveAcceso + getTaxpayerInfo().getIdentification();
+            claveAcceso = claveAcceso + getAmbiente();
+            claveAcceso = claveAcceso + serial + getSecuencial();
+            claveAcceso = claveAcceso + "123456781";
+            claveAcceso = claveAcceso + m11.modulo11(claveAcceso);
+
+            return claveAcceso;
+        } catch (Exception e) {
+            System.err.println("Error printClaveAcceso: " + e.getMessage());
+            e.printStackTrace();
             return "";
         }
     }

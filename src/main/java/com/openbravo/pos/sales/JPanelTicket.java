@@ -1880,6 +1880,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
                 TaxpayerInfo tp = dlTaxpayer.getTaxpayerInfo();  
                 ticket.setTaxpayerInfo(tp);
+                ticket.setAmbiente(dlSystem.getResourceAsText("Empresa.Ambiente"));
+                
                 dlSales.saveTicket(ticket, m_App.getInventoryLocation());
                 m_config.setProperty("lastticket.number", Integer.toString(ticket.getTicketId()));
                 m_config.setProperty("lastticket.type", Integer.toString(ticket.getTicketType()));
