@@ -269,7 +269,7 @@ public class AppConfig implements AppProperties {
     m_propsconfig.setProperty("db.driverlib", new File(new File(dirname)
             , "mysql-connector-java-8.0.23.jar").getAbsolutePath());
     m_propsconfig.setProperty("db.engine", "MySQL");
-    m_propsconfig.setProperty("db.driver", "com.mysql.jdbc.Driver");
+    m_propsconfig.setProperty("db.driver", "com.mysql.cj.jdbc.Driver");
 
 // primary DB
     m_propsconfig.setProperty("db.name", "allkupos");
@@ -337,14 +337,14 @@ public class AppConfig implements AppProperties {
     m_propsconfig.setProperty("paper.standard.height", "698");
     m_propsconfig.setProperty("paper.standard.mediasizename", "A4");
 
-    m_propsconfig.setProperty("tkt.header1", "uniCenta oPOS");
+    m_propsconfig.setProperty("tkt.header1", "Allku Pos Ec");
     m_propsconfig.setProperty("tkt.header2", "Touch Friendly Point Of Sale");
-    m_propsconfig.setProperty("tkt.header3", "Copyright (c) 2009-2018 uniCenta");
-    m_propsconfig.setProperty("tkt.header4", "Change header text in Configuration");
+    m_propsconfig.setProperty("tkt.header3", "");
+    m_propsconfig.setProperty("tkt.header4", "");
 
-    m_propsconfig.setProperty("tkt.footer1", "Change footer text in Configuration");
-    m_propsconfig.setProperty("tkt.footer2", "Thank you for your custom");
-    m_propsconfig.setProperty("tkt.footer3", "Please Call Again");
+    m_propsconfig.setProperty("tkt.footer1", "");
+    m_propsconfig.setProperty("tkt.footer2", "");
+    m_propsconfig.setProperty("tkt.footer3", "");
 
     m_propsconfig.setProperty("table.showcustomerdetails", "true");
     m_propsconfig.setProperty("table.customercolour", "#58B000");

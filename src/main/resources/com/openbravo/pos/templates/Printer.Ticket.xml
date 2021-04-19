@@ -37,7 +37,7 @@
     #end
 
     <ticket>
-        <image>Printer.Ticket.Logo</image>
+        <!--<image>Printer.Ticket.Logo</image>-->
         <line>
         </line>
         <line>
@@ -68,31 +68,34 @@
         <line>
             <text align="center" length="40">${ticket.printRetentionAgent()}</text>
         </line>
-        #end                        
+        #end
+        #if (${ticket.getTaxpayerInfo().getAddress()} != "")                        
         <line>
             <text align="center" length="40">${ticket.getTaxpayerInfo().getAddress()}</text>
         </line>
+        #end
+        #if (${ticket.getTaxpayerInfo().getPhone()} != "")
         <line>
             <text align="center" length="40">${ticket.getTaxpayerInfo().getPhone()}</text>
         </line>
+        #end
+        #if (${ticket.getTaxpayerInfo().geteMail()} != "")
         <line>
             <text align="center" length="40">${ticket.getTaxpayerInfo().geteMail()}</text>
         </line>
+        #end
         <line>
-            <text align="center" length="40">Clave de acceso:</text>
-        </line>
+            <text>Clave de acceso: ${ticket.printClaveAcceso()}</text>
+        </line>        
         <line>
-            <text>${ticket.printClaveAcceso()}</text>
-        </line>
-        <line>
-            <text align="center" length="40">      --------------------------      </text>
+            <text align="center" length="40">      - - - - - - - - - - - - -      </text>
         </line>
         <line>
             <text align="center" length="40">${ticket.printAmbiente()}</text>
         </line>
 
-        <line><text align="center" length="40">Printer.Ticket</text></line>
-        <line></line>
+        <!--<line><text align="center" length="40">Printer.Ticket</text></line>-->
+
         #if (${ticket.ticketType} == 0)
         <line>
             <text align="left" length="40">Factura: ${ticket.printSecuencial()}</text>
@@ -123,7 +126,6 @@
         #if (${tickettext.place} != ${place})
         <line><text align="left" length="15">Mesa:</text><text>${place}</text></line>
         #end
-        <line></line>
         <line>
             <text align ="left" length="16">Producto</text>
             <text align ="right" length="8">Precio</text>
@@ -183,23 +185,23 @@
         </line>
         <line>
             <text align ="left" length="16">Subtotal</text>
-            <text align ="right" length="20">${ticket.printSubTotal()}</text>
+            <text align ="right" length="24">${ticket.printSubTotal()}</text>
         </line>        
 
         #foreach ($taxinfo in $taxes)
         #set( $taxline = $ticket.getTaxLine($taxinfo))
         <line>
             <text align ="left" length="16">${taxline.printTaxInfo()}</text>
-            <text align ="right" length="20">${taxline.printSubTotal()}</text>
+            <text align ="right" length="24">${taxline.printSubTotal()}</text>
         </line>
         #end
         <line>
             <text align ="left" length="16">IVA 12%</text>
-            <text align ="right" length="20">${ticket.printTax()}</text>
+            <text align ="right" length="24">${ticket.printTax()}</text>
         </line>
         <line size="1">
             <text align ="left" length="16" bold="true">Total</text>
-            <text align ="right" length="20" bold="true">${ticket.printTotal()}</text>
+            <text align ="right" length="24" bold="true">${ticket.printTotal()}</text>
         </line>
 
         #foreach ($paymentline in $ticket.payments)
@@ -414,11 +416,11 @@
         #end
         #end
 
-        <line>
+<!--        <line>
             <text align="left" length="40">Terminal: ${ticket.getHost()}</text>
         </line>
         <line>
             <text align="left" length="40">Atendido por: ${ticket.printUser()}</text>
-        </line>
+        </line>-->
     </ticket>
 </output>

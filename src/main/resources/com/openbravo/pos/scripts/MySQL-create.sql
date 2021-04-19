@@ -997,30 +997,30 @@ INSERT INTO uom(id, name) VALUES ('0','Unidad');
 INSERT INTO floors(id, name, image) VALUES ('0', 'Restaurant floor', $FILE{/com/openbravo/images/paperboard960_600.png});
 
 -- ADD PLACES
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('1', 'Table 1', 100, 50, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('2', 'Table 2', 250, 50, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('3', 'Table 3', 400, 50, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('4', 'Table 4', 550, 50, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('5', 'Table 5', 700, 50, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('6', 'Table 6', 850, 50, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('7', 'Table 7', 100, 150, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('8', 'Table 8', 250, 150, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('9', 'Table 9', 400, 150, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('10', 'Table 10', 550, 150, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('11', 'Table 11', 700, 150, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('12', 'Table 12', 850, 150, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('13', 'Table 13', 100, 250, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('14', 'Table 14', 250, 250, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('15', 'Table 15', 400, 250, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('16', 'Table 16', 550, 250, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('17', 'Table 17', 700, 250, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('18', 'Table 18', 850, 250, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('19', 'Table 19', 100, 350, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('20', 'Table 20', 250, 350, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('21', 'Table 21', 400, 350, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('22', 'Table 22', 550, 350, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('23', 'Table 23', 700, 350, '0', '1', 90, 45);
-INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('24', 'Table 24', 850, 350, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('1', 'Mesa 1', 100, 50, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('2', 'Mesa 2', 250, 50, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('3', 'Mesa 3', 400, 50, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('4', 'Mesa 4', 550, 50, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('5', 'Mesa 5', 700, 50, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('6', 'Mesa 6', 850, 50, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('7', 'Mesa 7', 100, 150, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('8', 'Mesa 8', 250, 150, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('9', 'Mesa 9', 400, 150, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('10', 'Mesa 10', 550, 150, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('11', 'Mesa 11', 700, 150, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('12', 'Mesa 12', 850, 150, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('13', 'Mesa 13', 100, 250, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('14', 'Mesa 14', 250, 250, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('15', 'Mesa 15', 400, 250, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('16', 'Mesa 16', 550, 250, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('17', 'Mesa 17', 700, 250, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('18', 'Mesa 18', 850, 250, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('19', 'Mesa 19', 100, 350, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('20', 'Mesa 20', 250, 350, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('21', 'Mesa 21', 400, 350, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('22', 'Mesa 22', 550, 350, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('23', 'Mesa 23', 700, 350, '0', '1', 90, 45);
+INSERT INTO places(id, name, x, y, floor, seats, width, height) VALUES ('24', 'Mesa 24', 850, 350, '0', '1', 90, 45);
 
 -- ADD SHIFTS
 INSERT INTO shifts(id, startshift, endshift, pplid) VALUES ('0', '2018-01-01 00:00:00.001', '2018-01-01 00:00:00.002','0');
@@ -1056,7 +1056,7 @@ address, phone, email)
 VALUES
 (1, '9999999999999', 'Razón social', 'Nombre comercial',
 'NO', null, 'CONTRIBUYENTE RÉGIMEN MICROEMPRESAS', null,
-'Ecuador', '4444444', 'mi@mi.com');
+'', '', '');
 
 -- ADD APPLICATION VERSION
 INSERT INTO applications(id, name, version) VALUES($APP_ID{}, $APP_NAME{}, $APP_VERSION{});
