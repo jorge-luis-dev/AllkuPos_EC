@@ -168,7 +168,7 @@ CREATE TABLE `customers` (
 	`image` mediumblob default NULL,
 	`isvip` bit(1) NOT NULL default b'0',
 	`discount` double default '0',
-	`memodate` datetime default '2000-01-01 00:00:01',
+	`memodate` datetime default now(),
         `type` varchar(18) NOT NULL,
 	KEY `customers_card_inx` ( `card` ),
 	KEY `customers_name_inx` ( `name` ),
@@ -338,7 +338,7 @@ CREATE TABLE `products` (
 	`printto` varchar(255) default '1',
 	`supplier` varchar(255) default NULL,
         `uom` varchar(255) default '0',
-	`memodate` datetime default '2018-01-01 00:00:01',
+	`memodate` datetime default now(),
 
 	PRIMARY KEY  ( `id` ),
 	KEY `products_attrset_fx` ( `attributeset_id` ),
