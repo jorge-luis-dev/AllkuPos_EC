@@ -686,7 +686,6 @@ CREATE TABLE `taxpayer` (
   `id` int(11) NOT NULL,
   `identification` VARCHAR(50) NOT NULL,
   `legal_name` VARCHAR(400) NOT NULL,
-  `comercial_name` VARCHAR(400) NULL,
   `forced_accounting` VARCHAR(4) NOT NULL,
   `special_contributor` VARCHAR(40),
   `micro_business` VARCHAR(400),
@@ -696,6 +695,13 @@ CREATE TABLE `taxpayer` (
   `email` VARCHAR(220) default NULL,
   PRIMARY KEY (`id`));
 
+CREATE TABLE `establishment` (
+  `id` VARCHAR(12) NOT NULL,
+  `comercial_name` VARCHAR(300) NOT NULL,
+  `address` VARCHAR(390) NOT NULL,
+  `city` VARCHAR(300) NOT NULL,
+  `status` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`id`));
 
 -- Update foreign keys of attributeinstance
 ALTER TABLE `attributeinstance` ADD CONSTRAINT `attinst_att`
@@ -1050,13 +1056,16 @@ INSERT INTO identificationtype(code, name) VALUES ('P', 'Pasaporte');
 INSERT INTO identificationtype(code, name) VALUES ('CF', 'Consumidor Final');
 
 -- ADD taxpayer
-INSERT INTO taxpayer (id, identification, legal_name, comercial_name,
+INSERT INTO taxpayer (id, identification, legal_name,
 forced_accounting, special_contributor, micro_business, retention_agent,
 address, phone, email)
 VALUES
-(1, '9999999999999', 'Razón social', 'Nombre comercial',
+(1, '9999999999999', 'Razón social',
 'NO', null, 'CONTRIBUYENTE RÉGIMEN MICROEMPRESAS', null,
 '', '', '');
+
+INSERT INTO establishment (id, comercial_name, address, city, status) 
+VALUES ('001', 'Mi Matriz', 'Mi dirección', 'Ibarra', 'Activo');
 
 -- ADD APPLICATION VERSION
 INSERT INTO applications(id, name, version) VALUES($APP_ID{}, $APP_NAME{}, $APP_VERSION{});

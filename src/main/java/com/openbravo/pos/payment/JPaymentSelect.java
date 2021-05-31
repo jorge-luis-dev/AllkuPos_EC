@@ -170,6 +170,11 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         m_jButtonPrint.setSelected(printselected);
         m_jTotalEuros.setText(Formats.CURRENCY.formatValue(m_dTotal));
 
+        // Init final consumer
+        if (radFinalConsumer.isSelected()) {
+            requestFinalConsumer();
+        }        
+        
         if (printselected) {
             jlblPrinterStatus.setText("Printer ON");
         } else {
@@ -1065,10 +1070,6 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             return;
         }
 
-        if (!validateEmpty(txtAddress, "Dirección")) {
-            return;
-        }
-
         if (!existCustomer(txtIdentification.getText())) {
             saveCustomer();
         }
@@ -1096,6 +1097,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         };
 
         worker.execute();
+        
+        radFinalConsumer.setSelected(true);
     }//GEN-LAST:event_m_jButtonOKActionPerformed
 
     private void m_jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jButtonCancelActionPerformed

@@ -116,7 +116,6 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
 
         txtIdentification.setText(tp.getIdentification());
         txtLegalName.setText(tp.getLegalName());
-        txtComercialName.setText(tp.getComercialName());
         forced = tp.getForcedAccounting();
         txtSpecial.setText(tp.getSpecialContributor());
         micro = tp.getMicroBusiness();
@@ -151,8 +150,6 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
         txtIdentification = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtLegalName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtComercialName = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         ckForced = new javax.swing.JCheckBox();
@@ -189,12 +186,6 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
         txtLegalName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtLegalName.setPreferredSize(new java.awt.Dimension(0, 30));
 
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("Nombre Comercial");
-
-        txtComercialName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtComercialName.setPreferredSize(new java.awt.Dimension(0, 30));
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -208,11 +199,7 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtLegalName, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtComercialName, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(362, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,13 +207,11 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtIdentification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLegalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtComercialName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtLegalName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -343,7 +328,7 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +343,7 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         cmdApply.addActionListener(new java.awt.event.ActionListener() {
@@ -379,7 +364,7 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cmdApply, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,9 +375,9 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(cmdApply, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(183, Short.MAX_VALUE))
         );
 
         cmdApply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/ok.png"))); // NOI18N
@@ -413,7 +398,6 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
         String sqlTransaction = "";
         TaxpayerInfo tp = new TaxpayerInfo(txtIdentification.getText(),
                 txtLegalName.getText(),
-                txtComercialName.getText(),
                 ckForced.getText(),
                 txtSpecial.getText(),
                 ckMicro.getText() == "SI"
@@ -421,7 +405,8 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                 txtAgent.getText(),
                 txtAddress.getText(),
                 txtPhone.getText(),
-                txtMail.getText());
+                txtMail.getText()
+        );
 
         try {
             // Get session database
@@ -446,7 +431,6 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                         + "taxpayer (id, "
                         + "identification, "
                         + "legal_name, "
-                        + "comercial_name, "
                         + "forced_accounting, "
                         + "special_contributor, "
                         + "micro_business, "
@@ -463,13 +447,11 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
                         + "?, "
                         + "?, "
                         + "?, "
-                        + "?, "
                         + "?)";
             } else {
                 sqlTransaction = "UPDATE taxpayer "
                         + "SET identification = ?, "
                         + "legal_name = ?, "
-                        + "comercial_name = ?, "
                         + "forced_accounting = ?, "
                         + "special_contributor = ?, "
                         + "micro_business = ?, "
@@ -483,14 +465,13 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
             ps = con.prepareStatement(sqlTransaction);
             ps.setString(1, tp.getIdentification());
             ps.setString(2, tp.getLegalName());
-            ps.setString(3, tp.getComercialName());
-            ps.setString(4, tp.getForcedAccounting());
-            ps.setString(5, tp.getSpecialContributor());
-            ps.setString(6, tp.getMicroBusiness());
-            ps.setString(7, tp.getRetentionAgent());
-            ps.setString(8, tp.getAddress());
-            ps.setString(9, tp.getPhone());
-            ps.setString(10, tp.geteMail());
+            ps.setString(3, tp.getForcedAccounting());
+            ps.setString(4, tp.getSpecialContributor());
+            ps.setString(5, tp.getMicroBusiness());
+            ps.setString(6, tp.getRetentionAgent());
+            ps.setString(7, tp.getAddress());
+            ps.setString(8, tp.getPhone());
+            ps.setString(9, tp.geteMail());
 
             // call executeUpdate to execute our sql update statement
             ps.executeUpdate();
@@ -529,7 +510,6 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -542,7 +522,6 @@ public class Taxpayer extends JPanel implements JPanelView, BeanFactoryApp {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAgent;
-    private javax.swing.JTextField txtComercialName;
     private javax.swing.JTextField txtIdentification;
     private javax.swing.JTextField txtLegalName;
     private javax.swing.JTextField txtMail;

@@ -30,8 +30,7 @@ import com.openbravo.data.loader.SerializableRead;
 public class TaxpayerInfo implements SerializableRead {
 
     private String identification;
-    private String legalName;
-    private String comercialName;
+    private String legalName;    
     private String forcedAccounting;
     private String specialContributor;
     private String microBusiness;
@@ -43,7 +42,6 @@ public class TaxpayerInfo implements SerializableRead {
     public TaxpayerInfo() {
         this.identification = "";
         this.legalName = "";
-        this.comercialName = "";
         this.forcedAccounting = "";
         this.specialContributor = "";
         this.microBusiness = "";
@@ -53,10 +51,9 @@ public class TaxpayerInfo implements SerializableRead {
         this.eMail = "";
     }        
 
-    public TaxpayerInfo(String identification, String legalName, String comercialName, String forcedAccounting, String specialContributor, String microBusiness, String retentionAgent, String address, String phone, String eMail) {
+    public TaxpayerInfo(String identification, String legalName, String forcedAccounting, String specialContributor, String microBusiness, String retentionAgent, String address, String phone, String eMail) {
         this.identification = identification;
         this.legalName = legalName;
-        this.comercialName = comercialName;
         this.forcedAccounting = forcedAccounting;
         this.specialContributor = specialContributor;
         this.microBusiness = microBusiness;
@@ -80,14 +77,6 @@ public class TaxpayerInfo implements SerializableRead {
 
     public void setLegalName(String legalName) {
         this.legalName = legalName;
-    }
-
-    public String getComercialName() {
-        return comercialName;
-    }
-
-    public void setComercialName(String comercialName) {
-        this.comercialName = comercialName;
     }
 
     public String getForcedAccounting() {
@@ -144,19 +133,18 @@ public class TaxpayerInfo implements SerializableRead {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
-    }
+    }   
 
     @Override
     public void readValues(DataRead dr) throws BasicException {
         this.identification = dr.getString(1);
-        this.legalName = dr.getString(2);
-        this.comercialName = dr.getString(3);
-        this.forcedAccounting = dr.getString(4);
-        this.specialContributor = dr.getString(5);
-        this.microBusiness = dr.getString(6);
-        this.retentionAgent = dr.getString(7);
-        this.address = dr.getString(8);
-        this.phone = dr.getString(9);
-        this.eMail = dr.getString(10);
+        this.legalName = dr.getString(2);        
+        this.forcedAccounting = dr.getString(3);
+        this.specialContributor = dr.getString(4);
+        this.microBusiness = dr.getString(5);
+        this.retentionAgent = dr.getString(6);
+        this.address = dr.getString(7);
+        this.phone = dr.getString(8);
+        this.eMail = dr.getString(9);
     }
 }

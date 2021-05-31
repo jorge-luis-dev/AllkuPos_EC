@@ -85,11 +85,11 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
         );        
         
         m_ttaxpayer = new TableDefinition(s,
-            "roles"
-            , new String[] {"ID", "IDENTIFICATION", "LEGAL_NAME", "COMERCIAL_NAME",
+            "taxpayer"
+            , new String[] {"ID", "IDENTIFICATION", "LEGAL_NAME",
                 "FORCED_ACCOUNTING", "SPECIAL_CONTRIBUTOR", "MICRO_BUSINESS",
                 "RETENTION_AGENT", "ADDRESS", "PHONE", "EMAIL"}
-            , new String[] {"ID", "IDENTIFICATION", "LEGAL_NAME", "COMERCIAL_NAME",
+            , new String[] {"ID", "IDENTIFICATION", "LEGAL_NAME",
                 "FORCED_ACCOUNTING", "SPECIAL_CONTRIBUTOR", "MICRO_BUSINESS",
                 "RETENTION_AGENT", "ADDRESS", "PHONE", "EMAIL"}
             , new Datas[] {Datas.INT, Datas.STRING, Datas.STRING, Datas.STRING,
@@ -154,23 +154,23 @@ public class DataLogicAdmin extends BeanFactoryDataSingle {
     
     public final TaxpayerInfo getTaxpayerInfo() throws BasicException {
         return (TaxpayerInfo) new PreparedSentence(s
-            ,"SELECT IDENTIFICATION, LEGAL_NAME, COMERCIAL_NAME, "
+            ,"SELECT IDENTIFICATION, LEGAL_NAME, "
                         + "FORCED_ACCOUNTING, SPECIAL_CONTRIBUTOR, "
-                        + "MICRO_BUSINESS, RETENTION_AGENT, ADDRESS, PHONE, EMAIL " +
+                        + "MICRO_BUSINESS, RETENTION_AGENT, ADDRESS, PHONE, "
+                    + "EMAIL " +
                   "FROM taxpayer " +
              "WHERE ID = ?"
                 , SerializerWriteString.INSTANCE , (DataRead dr) -> {
                     TaxpayerInfo c = new TaxpayerInfo();
                     c.setIdentification(dr.getString(1));
                     c.setLegalName(dr.getString(2));
-                    c.setComercialName(dr.getString(3));
-                    c.setForcedAccounting(dr.getString(4));
-                    c.setSpecialContributor(dr.getString(5));
-                    c.setMicroBusiness(dr.getString(6));
-                    c.setRetentionAgent(dr.getString(7));
-                    c.setAddress(dr.getString(8));
-                    c.setPhone(dr.getString(9));
-                    c.seteMail(dr.getString(10));
+                    c.setForcedAccounting(dr.getString(3));
+                    c.setSpecialContributor(dr.getString(4));
+                    c.setMicroBusiness(dr.getString(5));
+                    c.setRetentionAgent(dr.getString(6));
+                    c.setAddress(dr.getString(7));
+                    c.setPhone(dr.getString(8));
+                    c.seteMail(dr.getString(9));
             return c;
         }).find("1");
     }
