@@ -23,18 +23,9 @@ import com.openbravo.basic.BasicException;
 import com.openbravo.data.user.DirtyManager;
 import com.openbravo.data.user.EditorRecord;
 import com.openbravo.format.Formats;
-import com.openbravo.pos.forms.AppLocal;
 import com.openbravo.pos.forms.AppView;
 import java.awt.Component;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -60,7 +51,7 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
         txtComercialName.getDocument().addDocumentListener(dirty);
         txtAddress.getDocument().addDocumentListener(dirty);
         txtCity.getDocument().addDocumentListener(dirty);
-        txtStatus.getDocument().addDocumentListener(dirty);
+        checkStatus.addActionListener(dirty);
 
         writeValueEOF();
     }
@@ -91,13 +82,13 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
         txtComercialName.setText(null);
         txtAddress.setText(null);
         txtCity.setText(null);
-        txtStatus.setText(null);
-
+        checkStatus.setSelected(false);
+        
         txtCode.setEnabled(false);
         txtComercialName.setEnabled(false);
         txtAddress.setEnabled(false);
         txtCity.setEnabled(false);
-        txtStatus.setEnabled(false);
+        checkStatus.setEnabled(false);
     }
 
     /**
@@ -110,13 +101,13 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
         txtComercialName.setText(null);
         txtAddress.setText(null);
         txtCity.setText(null);
-        txtStatus.setText(null);
+        checkStatus.setSelected(false);
 
         txtCode.setEnabled(true);
         txtComercialName.setEnabled(true);
         txtAddress.setEnabled(true);
         txtCity.setEnabled(true);
-        txtStatus.setEnabled(true);
+        checkStatus.setEnabled(true);
     }
 
     /**
@@ -125,20 +116,25 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
      */
     @Override
     public void writeValueDelete(Object value) {
-
         Object[] establishment = (Object[]) value;
+        
         m_oId = establishment[0];
         txtCode.setText(Formats.STRING.formatValue(establishment[0]));
         txtComercialName.setText(Formats.STRING.formatValue(establishment[1]));
         txtAddress.setText(Formats.STRING.formatValue(establishment[2]));
         txtCity.setText(Formats.STRING.formatValue(establishment[3]));
-        txtStatus.setText(Formats.STRING.formatValue(establishment[4]));
+        if (Formats.STRING.formatValue(establishment[4]).equals("Activo")) {
+            checkStatus.setSelected(true);
+        }
+        else {
+            checkStatus.setSelected(false);
+        }
 
         txtCode.setEnabled(false);
         txtComercialName.setEnabled(false);
         txtAddress.setEnabled(false);
         txtCity.setEnabled(false);
-        txtStatus.setEnabled(false);
+        checkStatus.setEnabled(false);
     }
 
     /**
@@ -147,20 +143,25 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
      */
     @Override
     public void writeValueEdit(Object value) {
-
         Object[] establishment = (Object[]) value;
+        
         m_oId = establishment[0];
         txtCode.setText(Formats.STRING.formatValue(establishment[0]));
         txtComercialName.setText(Formats.STRING.formatValue(establishment[1]));
         txtAddress.setText(Formats.STRING.formatValue(establishment[2]));
         txtCity.setText(Formats.STRING.formatValue(establishment[3]));
-        txtStatus.setText(Formats.STRING.formatValue(establishment[4]));
-
+        if (establishment[4].equals("Activo")) {
+            checkStatus.setSelected(true);
+        }
+        else {
+            checkStatus.setSelected(false);
+        }
+        
         txtCode.setEnabled(false);
         txtComercialName.setEnabled(true);
         txtAddress.setEnabled(true);
         txtCity.setEnabled(true);
-        txtStatus.setEnabled(true);
+        checkStatus.setEnabled(true);
     }
 
     /**
@@ -176,7 +177,12 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
         establishment[1] = txtComercialName.getText();
         establishment[2] = txtAddress.getText();
         establishment[3] = txtCity.getText();
-        establishment[4] = txtStatus.getText();
+        if (checkStatus.isSelected()) {
+            establishment[4] = "Activo";
+        }
+        else {
+            establishment[4] = "Inactivo";
+        }
 
         return establishment;
     }
@@ -205,9 +211,9 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
         txtAddress = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtCity = new javax.swing.JTextField();
-        txtStatus = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        checkStatus = new javax.swing.JCheckBox();
 
         txtCode.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtCode.setPreferredSize(new java.awt.Dimension(0, 30));
@@ -215,24 +221,30 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
         txtComercialName.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtComercialName.setPreferredSize(new java.awt.Dimension(0, 30));
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Establecimiento");
 
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("Nombre Comercial");
 
         txtAddress.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtAddress.setPreferredSize(new java.awt.Dimension(0, 30));
 
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel5.setText("Dirección");
 
         txtCity.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         txtCity.setPreferredSize(new java.awt.Dimension(0, 30));
 
-        txtStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtStatus.setPreferredSize(new java.awt.Dimension(0, 30));
-
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel6.setText("Ciudad");
 
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel7.setText("Estado");
+
+        checkStatus.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        checkStatus.setSelected(true);
+        checkStatus.setText("Activo / Inactivo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -248,12 +260,12 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
                     .addComponent(jLabel7))
                 .addGap(166, 166, 166)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkStatus)
                     .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtComercialName, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap(369, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,15 +287,16 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
                     .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addContainerGap(475, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(checkStatus))
+                .addContainerGap(481, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -293,7 +306,6 @@ public class EstablishmentEditor extends JPanel implements EditorRecord {
     private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtCode;
     private javax.swing.JTextField txtComercialName;
-    private javax.swing.JTextField txtStatus;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -1062,10 +1062,10 @@ address, phone, email)
 VALUES
 (1, '9999999999999', 'Razón social',
 'NO', null, 'CONTRIBUYENTE RÉGIMEN MICROEMPRESAS', null,
-'', '', '');
+'Mi dirección principal', '', '');
 
 INSERT INTO establishment (id, comercial_name, address, city, status) 
-VALUES ('001', 'Mi Matriz', 'Mi dirección', 'Ibarra', 'Activo');
+VALUES ('001', 'Mi Matriz', 'Mi dirección', 'Mi ciudad', 'Activo');
 
 -- ADD APPLICATION VERSION
 INSERT INTO applications(id, name, version) VALUES($APP_ID{}, $APP_NAME{}, $APP_VERSION{});

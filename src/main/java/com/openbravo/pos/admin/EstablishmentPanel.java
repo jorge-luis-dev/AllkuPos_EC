@@ -128,6 +128,6 @@ public class EstablishmentPanel extends JPanelTable {
      */
     @Override
     public String getTitle() {
-        return AppLocal.getIntString("Menu.SequenceSales");
+        return AppLocal.getIntString("Menu.Establishment");
     }
 }

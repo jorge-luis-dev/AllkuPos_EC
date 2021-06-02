@@ -163,6 +163,7 @@
     <class name="com.openbravo.pos.mant.JPanelPlaces"/>
     <class name="com.openbravo.pos.voucher.VoucherPanel"/>       
     <class name="com.openbravo.pos.admin.Taxpayer"/>
+    <class name="com.openbravo.pos.admin.EstablishmentPanel"/>
         <class name="/com/openbravo/reports/customers_vouchers.bs"/>      
         <class name="/com/openbravo/reports/users.bs"/>
         <class name="/com/openbravo/reports/users_nosales.bs"/>

@@ -101,7 +101,7 @@ group = menu.addGroup("Menu.Backoffice");
         submenu.addPanel("/com/openbravo/images/tables.png", "Menu.Tables", "com.openbravo.pos.mant.JPanelPlaces");
         submenu.addPanel("/com/openbravo/images/products.png", "Menu.Vouchers", "com.openbravo.pos.voucher.VoucherPanel");
         submenu.addPanel("/com/openbravo/images/bookmark.png", "Menu.Company", "com.openbravo.pos.admin.Taxpayer");
-        submenu.addPanel("/com/openbravo/images/resources.png", "Menu.Company", "com.openbravo.pos.admin.EstablishmentPanel");
+        submenu.addPanel("/com/openbravo/images/resources.png", "Menu.Establishment", "com.openbravo.pos.admin.EstablishmentPanel");
 
     submenu.addTitle("Menu.Panel.Maintenance.Reports");
         submenu.addPanel("/com/openbravo/images/reports.png", "Menu.UsersReport", "/com/openbravo/reports/users.bs");
