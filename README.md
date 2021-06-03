@@ -23,6 +23,10 @@ Software POS for Ecuador, based on OpenBravo and UniCenta (POS -> Point of Sale)
 `
 mvn clean; mvn install; java -jar .\target\allkupos.jar
 `
+### GNU/Linux
+`
+mvn clean && mvn install && java -jar target/allkupos.jar
+`
 
 # Manual
 ## Printer (Epson tmu-220, Epson tm-t20 or any model) for text mode (RECOMMENDED)

@@ -2954,4 +2954,18 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                     }
                 });
     }
+    
+    // Get city of establishment    
+    public SentenceList getCityEstablishment(String establishment) {
+        return new StaticSentence(s,
+                "select city from establishment "
+                + "where id = '" + establishment + "' "
+                + "and status = 'Activo'",
+                null,
+                new SerializerRead() {
+            public Object readValues(DataRead dr) throws BasicException {
+                return new String(dr.getString(1));
+            }
+        });
+    }
 }

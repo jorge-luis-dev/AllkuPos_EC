@@ -20,6 +20,7 @@
 package com.openbravo.pos.payment;
 
 import com.openbravo.basic.BasicException;
+import com.openbravo.data.loader.SentenceList;
 import com.openbravo.format.Formats;
 import com.openbravo.pos.customers.CustomerInfoBasic;
 import com.openbravo.pos.customers.CustomerInfoExt;
@@ -798,6 +799,11 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         lblAddress.setText("Dirección");
 
         txtAddress.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
+        txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAddressFocusGained(evt);
+            }
+        });
         txtAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAddressActionPerformed(evt);
@@ -1217,7 +1223,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             txtEmail.setText(customer.getEmail());
             txtAddress.setText(customer.getAddress());
             txtPhone.setText(customer.getPhone());
-        }        
+        }
+        else {
+            txtName.setText("");
+            txtEmail.setText("");
+            txtAddress.setText("");
+            txtPhone.setText("");
+        }
         txtName.requestFocus();
     }//GEN-LAST:event_txtIdentificationActionPerformed
 
@@ -1239,6 +1251,26 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private void txtAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAddressActionPerformed
         txtPhone.requestFocus();
     }//GEN-LAST:event_txtAddressActionPerformed
+
+    private void txtAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusGained
+        String idUser = app.getAppUserView().getUser().getId();
+        if (idUser.length() == 6) {
+            String establishment = idUser.substring(0, 3);
+            if (txtAddress.getText().isEmpty() && txtAddress.isEditable()) {
+                SentenceList sequence = dlSales
+                        .getCityEstablishment(establishment);
+                List l;
+                try {
+                    l = sequence.list("city");
+                    txtAddress.setText((String) l.get(0));
+                } catch (BasicException ex) {
+                    Logger.getLogger(JPaymentSelect.class.getName())
+                            .log(Level.SEVERE, null, ex);
+                    txtAddress.setText("");
+                }   
+            }
+        }
+    }//GEN-LAST:event_txtAddressFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup groupRadio;
