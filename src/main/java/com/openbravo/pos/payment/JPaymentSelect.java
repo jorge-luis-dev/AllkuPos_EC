@@ -171,6 +171,9 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         m_dTotal = total;
 
         this.customerext = customerext;
+        System.out.println("Customer from finder -> "
+                + this.customerext.getName() + " "
+                + this.customerext.getTaxid());
 
         setPrintSelected(!Boolean.parseBoolean(app.getProperties().getProperty("till.receiptprintoff")));
         m_jButtonPrint.setSelected(printselected);
@@ -179,7 +182,49 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         // Init final consumer
         if (radFinalConsumer.isSelected()) {
             requestFinalConsumer();
-        }        
+        }
+        // Get customer from JPanelTicket finder
+        if (existCustomer(this.customerext.getTaxid())) {
+            CustomerInfoBasic customer = getCustomer(this.customerext.getTaxid());            
+            if (customer.getType().equals("P")) {
+                requestPassport();
+                txtIdentification.setText(customer.getTaxid());
+                txtName.setText(customer.getName());
+                txtEmail.setText(customer.getEmail());
+                txtAddress.setText(customer.getAddress());
+                txtPhone.setText(customer.getPhone());
+                radPassport.setSelected(true);
+                m_jButtonOK.requestFocus();
+            }
+            else if (customer.getType().equals("C")) {
+                requestCi();
+                txtIdentification.setText(customer.getTaxid());
+                txtName.setText(customer.getName());
+                txtEmail.setText(customer.getEmail());
+                txtAddress.setText(customer.getAddress());
+                txtPhone.setText(customer.getPhone());
+                radCi.setSelected(true);
+                m_jButtonOK.requestFocus();
+            }
+            else if (customer.getType().equals("R")) {
+                requestRuc();
+                txtIdentification.setText(customer.getTaxid());
+                txtName.setText(customer.getName());
+                txtEmail.setText(customer.getEmail());
+                txtAddress.setText(customer.getAddress());
+                txtPhone.setText(customer.getPhone());
+                radRuc.setSelected(true);
+                m_jButtonOK.requestFocus();
+            }
+            else {
+                requestFinalConsumer();
+                radFinalConsumer.setSelected(true);                
+            }
+        }
+        else {
+           requestFinalConsumer();
+           radFinalConsumer.setSelected(true);
+        }
         
         if (printselected) {
             jlblPrinterStatus.setText("Printer ON");
@@ -1005,7 +1050,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         CustomerInfoBasic customer;
         try {
             customer = dlCustomers.getCustomerInfoBasic(cliente);
-            System.out.println("Customer " + customer);
+            System.out.println("Customer -> " + customer);
             if (customer == null) {
                 return null;
             }
@@ -1270,6 +1315,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
                 try {
                     l = sequence.list("city");
                     txtAddress.setText((String) l.get(0));
+                    txtAddress.selectAll();
                 } catch (BasicException ex) {
                     Logger.getLogger(JPaymentSelect.class.getName())
                             .log(Level.SEVERE, null, ex);
