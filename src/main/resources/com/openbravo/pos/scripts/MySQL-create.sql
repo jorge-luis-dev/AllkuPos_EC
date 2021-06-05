@@ -1065,7 +1065,7 @@ VALUES
 'Mi dirección principal', '', '');
 
 INSERT INTO establishment (id, comercial_name, address, city, status) 
-VALUES ('001', 'Mi Matriz', 'Mi dirección', 'Mi ciudad', 'Activo');
+VALUES ('001', 'Mi Matriz', 'Mi dirección del establecimiento', 'Mi ciudad', 'Activo');
 
 -- ADD APPLICATION VERSION
 INSERT INTO applications(id, name, version) VALUES($APP_ID{}, $APP_NAME{}, $APP_VERSION{});

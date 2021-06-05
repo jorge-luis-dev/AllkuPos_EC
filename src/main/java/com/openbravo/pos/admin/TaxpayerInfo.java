@@ -38,6 +38,7 @@ public class TaxpayerInfo implements SerializableRead {
     private String address;
     private String phone;
     private String eMail;
+    private String comercialNameByEstablishment;
 
     public TaxpayerInfo() {
         this.identification = "";
@@ -49,6 +50,7 @@ public class TaxpayerInfo implements SerializableRead {
         this.address = "";
         this.phone = "";
         this.eMail = "";
+        this.comercialNameByEstablishment = "";
     }        
 
     public TaxpayerInfo(String identification, String legalName, String forcedAccounting, String specialContributor, String microBusiness, String retentionAgent, String address, String phone, String eMail) {
@@ -61,6 +63,7 @@ public class TaxpayerInfo implements SerializableRead {
         this.address = address;
         this.phone = phone;
         this.eMail = eMail;
+        this.comercialNameByEstablishment = "";
     }
 
     public String getIdentification() {
@@ -133,7 +136,15 @@ public class TaxpayerInfo implements SerializableRead {
 
     public void seteMail(String eMail) {
         this.eMail = eMail;
-    }   
+    }    
+    
+    public String getComercialNameByEstablishment() {
+        return comercialNameByEstablishment;
+    }
+
+    public void setComercialNameByEstablishment(String comercialNameByEstablishment) {
+        this.comercialNameByEstablishment = comercialNameByEstablishment;
+    }
 
     @Override
     public void readValues(DataRead dr) throws BasicException {

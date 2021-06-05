@@ -81,4 +81,22 @@ public class DataLogicEstablishment extends BeanFactoryDataSingle {
                 new int[]{0}
         );
     }
+    
+    /**
+     * 
+     * @param establishment
+     * @return 
+     */
+    public SentenceList getComercialNameEstablishment(String establishment) {
+        return new StaticSentence(s,
+                "select comercial_name from establishment "
+                + "where id = '" + establishment + "' "
+                + "and status = 'Activo'",
+                null,
+                new SerializerRead() {
+            public Object readValues(DataRead dr) throws BasicException {
+                return new String(dr.getString(1));
+            }
+        });
+    }
 }

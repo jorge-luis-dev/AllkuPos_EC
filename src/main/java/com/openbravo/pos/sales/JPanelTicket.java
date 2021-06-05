@@ -34,6 +34,7 @@ import com.openbravo.data.gui.MessageInf;
 import com.openbravo.data.loader.SentenceList;
 import com.openbravo.editor.JEditorString;
 import com.openbravo.pos.admin.DataLogicAdmin;
+import com.openbravo.pos.admin.DataLogicEstablishment;
 import com.openbravo.pos.admin.TaxpayerInfo;
 import com.openbravo.pos.catalog.JCatalog;
 import com.openbravo.pos.customers.*;
@@ -73,8 +74,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.*;
-
+import java.util.List;
 import static java.awt.Window.getWindows;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -1041,7 +1044,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         Added by Jorge Luis
         Función para recuperar el cliente seleccionado en el JPaymentSelect. 
      */
-    private boolean getCliente(String documento) {
+    private boolean getCustomer(String documento) {
 
         System.out.println("Documento: " + documento);
 
@@ -1071,13 +1074,34 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
         return true;
     }
+    
+  private String getComercialName() {    
+    String idUser = m_App.getAppUserView().getUser().getId();
+    
+    if (idUser.length() == 6) {
+        DataLogicEstablishment dlEstablishment = (DataLogicEstablishment) m_App
+              .getBean("com.openbravo.pos.admin.DataLogicEstablishment");
+        String establishment = idUser.substring(0, 3);
+        SentenceList sequence = dlEstablishment
+                        .getComercialNameEstablishment(establishment);
+
+      try {
+          List l = sequence.list("comercial_name");
+          return (String) l.get(0);
+      } catch (BasicException ex) {
+          Logger.getLogger(JPanelTicket.class.getName()).log(Level.SEVERE, null, ex);
+          return "";
+      }
+    }
+    return "";
+  }
 
   @SuppressWarnings("empty-statement")
   private void stateTransition(char cTrans) {
     //Added by Jorge Luis, if Customer is null then search Consumidor Final
     if (m_oTicket.getCustomer() == null) {
         //Added to cliente default is Consumidor Final
-        if (getCliente("9999999999999") == false) {
+        if (getCustomer("9999999999999") == false) {
             JOptionPane.showMessageDialog(this, "El  Consumidor Final, no existe. Crear Consumidor Final en clientes por favor", "Error: Cliente no existe", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -1869,6 +1893,11 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
             ticket.setPayments(paymentdialog.getSelectedPayments());
 
+            // Added by Jorge Luis to get customer from payment
+            if (getCustomer(paymentdialogreceipt.getIdentification())) {
+                ticket.setCustomer(m_oTicket.getCustomer());
+            }
+            
             ticket.setUser(m_App.getAppUserView().getUser().getUserInfo());
             ticket.setActiveCash(m_App.getActiveCashIndex());
             ticket.setDate(new Date());
@@ -1878,7 +1907,8 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
               try {
                 DataLogicAdmin dlTaxpayer = (DataLogicAdmin) m_App.getBean("com.openbravo.pos.admin.DataLogicAdmin");
 
-                TaxpayerInfo tp = dlTaxpayer.getTaxpayerInfo();  
+                TaxpayerInfo tp = dlTaxpayer.getTaxpayerInfo();
+                tp.setComercialNameByEstablishment(getComercialName());
                 ticket.setTaxpayerInfo(tp);
                 ticket.setAmbiente(dlSystem.getResourceAsText("Empresa.Ambiente"));
                 

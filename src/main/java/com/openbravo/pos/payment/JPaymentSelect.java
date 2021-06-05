@@ -65,6 +65,11 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private Map<String, JPaymentInterface> payments = new HashMap<>();
     private String m_sTransactionID;
     private static PaymentInfo returnPayment = null;
+    private String identification = "";
+
+    public String getIdentification() {
+        return identification;
+    }
 
     public static PaymentInfo getReturnPayment() {
         return returnPayment;
@@ -1079,6 +1084,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         if (!existCustomer(txtIdentification.getText())) {
             saveCustomer();
         }
+        
+        this.identification = txtIdentification.getText();
         
         SwingWorker worker = new SwingWorker() {
             @Override
